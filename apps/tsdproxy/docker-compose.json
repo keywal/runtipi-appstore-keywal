@@ -2,7 +2,7 @@
     "services": [
       {
         "name": "tsdproxy",
-        "image": "almeidapaulopt/tsdproxy:latest",
+        "image": "almeidapaulopt/tsdproxy:2",
         "isMain": true,
         "internalPort": "8080",
         "volumes": [
