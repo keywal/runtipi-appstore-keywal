@@ -15,12 +15,13 @@
             "containerPath": "/var/run/docker.sock"
           }
         ],
-       "environment": 
-       {
+        "environment": 
+        {
         "AUTOKUMA__KUMA__URL": "${AUTOKUMA__KUMA__URL}",
         "AUTOKUMA__KUMA__USERNAME": "${AUTOKUMA__KUMA__USERNAME}",
-        "AUTOKUMA__KUMA__PASSWORD": "${AUTOKUMA__KUMA__PASSWORD}"
-       }
+        "AUTOKUMA__KUMA__PASSWORD": "${AUTOKUMA__KUMA__PASSWORD}",
+        "AUTOKUMA__KUMA__MFA_TOKEN": "${AUTOKUMA__KUMA__MFA_TOKEN}"
+        }
       }
 ]
 }
