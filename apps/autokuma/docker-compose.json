@@ -1,0 +1,26 @@
+{
+    "services": [
+      {
+        "name": "autokuma",
+        "image": "ghcr.io/bigboot/autokuma:latest",
+        "isMain": true,
+        "internalPort": "3001",
+        "volumes": [
+          {
+            "hostPath": "${APP_DATA_DIR}/data",
+            "containerPath": "/data"
+          },
+          {
+            "hostPath": "/var/run/docker.sock",
+            "containerPath": "/var/run/docker.sock"
+          }
+        ],
+       "environment": 
+       {
+        "AUTOKUMA__KUMA__URL": "${AUTOKUMA__KUMA__URL}",
+        "AUTOKUMA__KUMA__USERNAME": "${AUTOKUMA__KUMA__USERNAME}",
+        "AUTOKUMA__KUMA__PASSWORD": "${AUTOKUMA__KUMA__PASSWORD}"
+       }
+      }
+]
+}
