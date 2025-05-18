@@ -25,9 +25,9 @@ For detailed instructions on creating your own app store, please refer to the of
 
  [Autokuma](https://github.com/BigBoot/AutoKuma) - Adds containers as monitors to UptimeKuma automatically based on labels
  
- [GoMFT](https://github.com/StarFleetCPTN/GoMFT) - Rclone and Go based cloud syncing solution. 
+ [GoMFT](https://github.com/StarFleetCPTN/GoMFT) - Rclone and Go based cloud syncing solution.
  
- [Huntarr](https://github.com/plexguide/Huntarr.io) - Continious search of your media library triggering searches of items are missing or below cutoff.
+ [Huntarr](https://github.com/plexguide/Huntarr.io) - Continious search of your media library triggering searches of items that are missing or below cutoff.
  
  [TSDProxy](https://github.com/almeidapaulopt/tsdproxy) - Acts as a proxy for Tailscale allowing you to expose services on your Tailnet. Based on container labels but also supports external services via config file.
 
