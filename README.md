@@ -31,6 +31,8 @@ For detailed instructions on creating your own app store, please refer to the of
  
  [TSDProxy](https://github.com/almeidapaulopt/tsdproxy) - Acts as a proxy for Tailscale allowing you to expose services on your Tailnet. Based on container labels but also supports external services via config file.
 
+ [Posteria](https://github.com/jeremehancock/Posteria) - Posteria is a web-based media poster management system that allows you to organize and store custom posters for your movies, TV shows, seasons, and collections. It provides an elegant interface for uploading, importing, managing, and accessing your media artwork.
+
  More to follow...
 
 
