@@ -6,13 +6,13 @@
       "isMain": true,
       "addPorts": [
         {
-          "hostPort": "8818",
-          "containerPort": "80",
+          "hostPort": 8818,
+          "containerPort": 80,
           "tcp": true,
           "udp": false
         }
       ],
-      "internalPort": "80",
+      "internalPort": 80,
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/posters",
