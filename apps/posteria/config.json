@@ -1,5 +1,5 @@
 {
-  "id": "posteria",
+  "id": "Posteria",
   "available": true,
   "deprecated": false,
   "port": 8818,
@@ -28,7 +28,7 @@
   "form_fields": [
     {
       "type": "text",
-      "label": "AUTH USERNAME (posteria)",
+      "label": "AUTH USERNAME",
       "env_variable": "AUTH_USERNAME",
       "default": "",
       "placeholder": "Enter value for AUTH_USERNAME",
@@ -36,7 +36,7 @@
     },
     {
       "type": "password",
-      "label": "AUTH PASSWORD (posteria)",
+      "label": "AUTH PASSWORD",
       "env_variable": "AUTH_PASSWORD",
       "default": "",
       "placeholder": "Enter value for AUTH_PASSWORD",
@@ -44,7 +44,7 @@
     },
     {
       "type": "url",
-      "label": "PLEX SERVER URL (posteria)",
+      "label": "PLEX SERVER URL",
       "env_variable": "PLEX_SERVER_URL",
       "default": "",
       "placeholder": "Enter value for PLEX_SERVER_URL",
@@ -52,7 +52,7 @@
     },
     {
       "type": "text",
-      "label": "PLEX TOKEN (posteria)",
+      "label": "PLEX TOKEN",
       "env_variable": "PLEX_TOKEN",
       "default": "",
       "placeholder": "Enter value for PLEX_TOKEN",
