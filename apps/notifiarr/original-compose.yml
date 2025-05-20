@@ -1,0 +1,13 @@
+services:
+  # Replace or pass in APPDATA (below).
+  Notifiarr:
+    container_name: notifiarr
+    hostname: notifiarr
+    image: golift/notifiarr
+    restart: unless-stopped
+    ports:
+      - "5454:5454"
+    volumes:
+      - ${APP_DATA_DIR}/config:/config
+      - /var/run/utmp:/var/run/utmp
+      - /etc/machine-id:/etc/machine-id
