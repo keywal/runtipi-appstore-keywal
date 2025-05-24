@@ -33,6 +33,10 @@ For detailed instructions on creating your own app store, please refer to the of
 
  [Posteria](https://github.com/jeremehancock/Posteria) - Posteria is a web-based media poster management system that allows you to organize and store custom posters for your movies, TV shows, seasons, and collections. It provides an elegant interface for uploading, importing, managing, and accessing your media artwork.
 
+ [Notifiarr](https://notifiarr.com/) - A purpose built system to bring many applications together to manage and customize notifications via Discord. You can monitor many aspects of your network(s), be notified of downtime, be notified of health issues, etc
+
+ [Linkding](https://github.com/sissbruecker/linkding) - linkding is a bookmark manager that you can host yourself. It's designed be to be minimal, fast, and easy to set up using Docker.
+ 
  More to follow...
 
 
