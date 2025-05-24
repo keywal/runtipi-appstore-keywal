@@ -1,0 +1,32 @@
+{
+  "id": "linkding",
+  "available": true,
+  "deprecated": false,
+  "port": 9090,
+  "name": "linkding",
+  "description": "linkding is a bookmark manager that you can host yourself. It's designed be to be minimal, fast, and easy to set up using Docker.",
+  "short_desc": "linkding is a bookmark manager that you can host yourself. It's designed be to be minimal, fast, and easy to set up using Docker.",
+  "author": "sissbruecker",
+  "website": "https://linkding.link/",
+  "categories": [
+    "data"
+  ],
+  "version": "latest",
+  "tipi_version": 1,
+  "source": "https://github.com/sissbruecker/linkding",
+  "exposable": true,
+  "no_gui": false,
+  "dynamic_config": true,
+  "force_expose": false,
+  "generate_vapid_keys": false,
+  "https": false,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "min_tipi_version": "0.0.0",
+  "force_pull": false,
+  "form_fields": [],
+  "created_at": 1748104301,
+  "updated_at": 1748104301
+}

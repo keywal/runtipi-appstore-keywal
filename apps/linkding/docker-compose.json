@@ -1,0 +1,25 @@
+{
+  "services": [
+    {
+      "name": "linkding",
+      "image": "sissbruecker/linkding:latest",
+      "isMain": true,
+      "addPorts": [
+        {
+          "hostPort": "9090",
+          "containerPort": "9090",
+          "tcp": true,
+          "udp": false
+        }
+      ],
+      "internalPort": "9090",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/etc/linkding/data\"",
+          "readOnly": false
+        }
+      ]
+    }
+  ]
+}
