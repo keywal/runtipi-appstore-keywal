@@ -1,5 +1,3 @@
-<h1 align="left">GoMFT - Go Managed File Transfer</h1>
-
 GoMFT is a web-based managed file transfer application built with Go, leveraging rclone for robust file transfer capabilities. It provides a user-friendly interface for configuring, scheduling, and monitoring file transfers across various storage providers.
 
 ---

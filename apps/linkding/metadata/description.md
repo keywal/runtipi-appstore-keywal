@@ -1,10 +1,3 @@
-<div align="center">
-    <br>
-    <a href="https://github.com/sissbruecker/linkding">
-        <img src="assets/header.svg" height="50">
-    </a>
-    <br>
-</div>
 
 ##  Introduction
 

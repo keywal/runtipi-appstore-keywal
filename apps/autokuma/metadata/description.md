@@ -1,10 +1,3 @@
-<div align="center" width="100%">
-    <img src="https://github.com/BigBoot/AutoKuma/blob/master/logo.svg" height="196" alt="" />
-</div>
-
-
-# AutoKuma 🐻 <a href="https://crates.io/crates/autokuma"><img alt="Crates.io Version" src="https://img.shields.io/crates/v/autokuma?logo=rust&color=blue"></a>
-
 AutoKuma is a utility that automates the creation of Uptime Kuma monitors based on Docker container labels. With AutoKuma, you can eliminate the need for manual monitor creation in the Uptime Kuma UI.
 
 
