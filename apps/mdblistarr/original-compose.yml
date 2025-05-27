@@ -1,0 +1,7 @@
+services:
+  mdblistarr:
+    image: linaspurinis/mdblistarr:v2-beta
+    environment:
+      - PORT=5353
+    volumes:
+      - ${APP_DATA_DIR}/data/db:/usr/src/db/

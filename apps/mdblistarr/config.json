@@ -1,0 +1,33 @@
+{
+  "id": "mdblistarr",
+  "available": true,
+  "deprecated": false,
+  "name": "mdblistarr",
+  "description": "Companion app for mdblist.com - for better Radarr and Sonarr integration.",
+  "short_desc": "Companion app for mdblist.com - for better Radarr and Sonarr integration.",
+  "author": "linaspurinis",
+  "port": 5353,
+  "website": "",
+  "categories": [
+    "media",
+    "automation"
+  ],
+  "version": "v2-beta",
+  "tipi_version": 1,
+  "source": "https://github.com/linaspurinis/mdblistarr?tab=readme-ov-file",
+  "exposable": true,
+  "no_gui": false,
+  "dynamic_config": true,
+  "force_expose": false,
+  "generate_vapid_keys": false,
+  "https": false,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "min_tipi_version": "0.0.0",
+  "force_pull": false,
+  "form_fields": [],
+  "created_at": 1748350979,
+  "updated_at": 1748350979
+}
