@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "yamtrack",
-      "image": "ghcr.io/fuzzygrim/yamtrack",
+      "image": "ghcr.io/fuzzygrim/yamtrack:dev",
       "isMain": true,
       "addPorts": [
         {
