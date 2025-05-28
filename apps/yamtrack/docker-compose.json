@@ -1,0 +1,45 @@
+{
+  "services": [
+    {
+      "name": "yamtrack",
+      "image": "ghcr.io/fuzzygrim/yamtrack",
+      "isMain": true,
+      "addPorts": [
+        {
+          "hostPort": "8000",
+          "containerPort": "8000",
+          "tcp": true,
+          "udp": false
+        }
+      ],
+      "internalPort": "8000",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/db",
+          "containerPath": "/yamtrack/db",
+          "readOnly": false
+        }
+      ],
+      "environment": {
+        "TZ": "Europe/Dublin",
+        "SECRET": "longstring1longstring2longstring3",
+        "REDIS_URL": "redis://redis:6379"
+      },
+      "dependsOn": [
+        "redis"
+      ]
+    },
+    {
+      "name": "redis",
+      "image": "redis:7-alpine",
+      "isMain": false,
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/data",
+          "readOnly": false
+        }
+      ]
+    }
+  ]
+}
