@@ -6,13 +6,13 @@
       "isMain": true,
       "addPorts": [
         {
-          "hostPort": "8656",
+          "hostPort": "8666",
           "containerPort": "9090",
           "tcp": true,
           "udp": false
         }
       ],
-      "internalPort": "8656",
+      "internalPort": "8666",
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data",
