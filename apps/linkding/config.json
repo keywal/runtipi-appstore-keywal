@@ -11,8 +11,8 @@
   "categories": [
     "data"
   ],
-  "version": "latest",
-  "tipi_version": 1,
+  "version": "1.40.0",
+  "tipi_version": 2,
   "source": "https://github.com/sissbruecker/linkding",
   "exposable": true,
   "no_gui": false,
