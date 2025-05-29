@@ -2,7 +2,7 @@
   "id": "linkding",
   "available": true,
   "deprecated": false,
-  "port": 9090,
+  "port": 8666,
   "name": "linkding",
   "description": "linkding is a bookmark manager that you can host yourself. It's designed be to be minimal, fast, and easy to set up using Docker.",
   "short_desc": "linkding is a bookmark manager that you can host yourself. It's designed be to be minimal, fast, and easy to set up using Docker.",
@@ -11,7 +11,7 @@
   "categories": [
     "data"
   ],
-  "version": "latest",
+  "version": "1.40.0",
   "tipi_version": 1,
   "source": "https://github.com/sissbruecker/linkding",
   "exposable": true,
@@ -26,7 +26,29 @@
   ],
   "min_tipi_version": "0.0.0",
   "force_pull": false,
-  "form_fields": [],
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "Admin Username",
+      "required": true,
+      "env_variable": "LD_SUPERUSER_NAME",
+      "hint": "The username for the Linkding admin account"
+    },
+    {
+      "type": "text",
+      "label": "Admin Email",
+      "required": true,
+      "env_variable": "LD_SUPERUSER_EMAIL",
+      "hint": "Email address for the Linkding admin (used for password recovery)"
+    },
+    {
+      "type": "password",
+      "label": "Admin Password",
+      "required": true,
+      "env_variable": "LD_SUPERUSER_PASSWORD",
+      "hint": "Password for the admin account (make it strong)"
+    }
+  ],
   "created_at": 1748104301,
   "updated_at": 1748104301
 }

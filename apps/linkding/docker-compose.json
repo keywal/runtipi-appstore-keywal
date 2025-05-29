@@ -2,17 +2,22 @@
   "services": [
     {
       "name": "linkding",
-      "image": "sissbruecker/linkding:latest",
+      "image": "sissbruecker/linkding:1.40.0",
       "isMain": true,
       "addPorts": [
         {
-          "hostPort": "9090",
+          "hostPort": "8666",
           "containerPort": "9090",
           "tcp": true,
           "udp": false
         }
       ],
       "internalPort": "9090",
+      "environment": {
+        "LD_SUPERUSER_NAME": "${LD_SUPERUSER_NAME}",
+        "LD_SUPERUSER_PASSWORD": "${LD_SUPERUSER_PASSWORD}",
+        "LD_SUPERUSER_EMAIL": "${LD_SUPERUSER_EMAIL}"
+      },
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data",
