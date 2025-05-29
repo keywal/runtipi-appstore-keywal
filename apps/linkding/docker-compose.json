@@ -12,7 +12,7 @@
           "udp": false
         }
       ],
-      "internalPort": "8666",
+      "internalPort": "9090",
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data",
