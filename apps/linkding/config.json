@@ -12,7 +12,7 @@
     "data"
   ],
   "version": "1.40.0",
-  "tipi_version": 2,
+  "tipi_version": 1,
   "source": "https://github.com/sissbruecker/linkding",
   "exposable": true,
   "no_gui": false,
