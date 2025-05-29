@@ -12,7 +12,7 @@
     "media",
     "utilities"
   ],
-  "version": dev",
+  "version": "dev",
   "tipi_version": 1,
   "source": "https://github.com/FuzzyGrim/Yamtrack",
   "exposable": true,
