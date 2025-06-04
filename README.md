@@ -36,6 +36,12 @@ For detailed instructions on creating your own app store, please refer to the of
  [Notifiarr](https://notifiarr.com/) - A purpose built system to bring many applications together to manage and customize notifications via Discord. You can monitor many aspects of your network(s), be notified of downtime, be notified of health issues, etc
 
  [Linkding](https://github.com/sissbruecker/linkding) - linkding is a bookmark manager that you can host yourself. It's designed be to be minimal, fast, and easy to set up using Docker.
+
+ [Yamtrack](https://github.com/FuzzyGrim/Yamtrack) - Yamtrack is a self hosted media tracker for movies, tv shows, anime, manga, video games and books.
+
+ [qbit-manage](https://github.com/StuffAnThings/qbit_manage) - This is a program used to manage your qBittorrent instance.
+
+
  
  More to follow...
 
