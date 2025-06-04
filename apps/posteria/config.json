@@ -1,9 +1,9 @@
 {
-  "id": "Posteria",
+  "id": "posteria",
   "available": true,
   "deprecated": false,
   "port": 8818,
-  "name": "posteria",
+  "name": "Posteria",
   "description": "Posteria is a web-based media poster management system that allows you to organize and store custom posters for your movies, TV shows, seasons, and co",
   "short_desc": "Posteria is a web-based media poster management system that allows you to organize and store custom posters for your movies, TV shows, seasons, and co",
   "author": "bozodev",
