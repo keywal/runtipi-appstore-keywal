@@ -1,9 +1,9 @@
 {
-  "id": "Linkding",
+  "id": "linkding",
   "available": true,
   "deprecated": false,
   "port": 8666,
-  "name": "linkding",
+  "name": "Linkding",
   "description": "linkding is a bookmark manager that you can host yourself. It's designed be to be minimal, fast, and easy to set up using Docker.",
   "short_desc": "linkding is a bookmark manager that you can host yourself. It's designed be to be minimal, fast, and easy to set up using Docker.",
   "author": "sissbruecker",
