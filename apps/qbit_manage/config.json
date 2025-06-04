@@ -2,7 +2,7 @@
   "id": "qbit_manage",
   "available": true,
   "deprecated": false,
-  "name": "qBit_Manage",
+  "name": "qBit Manage",
   "description": "This is a program used to manage your qBittorrent instance",
   "short_desc": "This is a program used to manage your qBittorrent instance",
   "author": "StuffAnThings",
