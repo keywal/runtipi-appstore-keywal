@@ -2,7 +2,7 @@
   "services": [
     {
       "name": "linkding",
-      "image": "sissbruecker/linkding:1.40.0",
+      "image": "sissbruecker/linkding:latest",
       "isMain": true,
       "addPorts": [
         {
