@@ -16,7 +16,7 @@
   "source": "https://github.com/sissbruecker/linkding",
   "exposable": true,
   "no_gui": false,
-  "min_tipi_version": "4.5.3",
+  "min_tipi_version": "4.5.0",
   "dynamic_config": true,
   "force_expose": false,
   "generate_vapid_keys": false,

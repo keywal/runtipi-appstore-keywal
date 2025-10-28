@@ -23,7 +23,7 @@
     "arm64",
     "amd64"
   ],
-  "min_tipi_version": "4.5.3",
+  "min_tipi_version": "4.5.0",
   "force_pull": false,
   "form_fields": [
     {

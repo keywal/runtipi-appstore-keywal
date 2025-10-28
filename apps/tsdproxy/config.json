@@ -11,7 +11,7 @@
     "description": "TsDProxy simplifies the process of securely exposing services and Docker containers to your Tailscale network by automatically creating Tailscale machines for each tagged container. This allows services to be accessible via unique, secure URLs without the need for complex configurations or additional Tailscale containers.",
     "tipi_version": 2,
     "version": "v1.4.7",
-    "min_tipi_version": "4.5.3",
+    "min_tipi_version": "4.5.0",
     "source": "https://github.com/almeidapaulopt/tsdproxy",
     "exposable": true,
     "supported_architectures": [

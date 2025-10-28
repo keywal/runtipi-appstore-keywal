@@ -11,7 +11,7 @@
   "description": "This application continually searches your media libraries for missing content and items that need quality upgrades. It automatically triggers searches for both missing items and those below your quality cutoff. It's designed to run continuously while being gentle on your indexers, helping you gradually complete your media collection with the best available quality.",
   "tipi_version": 2,
   "version": "v6.3.6",
-  "min_tipi_version": "4.5.3",
+  "min_tipi_version": "4.5.0",
   "source": "https://github.com/plexguide/Huntarr.io",
   "exposable": true,
   "supported_architectures": [
