@@ -11,6 +11,7 @@
     "description": "AutoKuma is a utility that automates the creation of Uptime Kuma monitors based on Docker container labels. With AutoKuma, you can eliminate the need for manual monitor creation in the Uptime Kuma UI.",
     "tipi_version": 2,
     "version": "v1.0.0",
+    "min_tipi_version": "4.5.3",
     "source": "https://github.com/BigBoot/AutoKuma",
     "exposable": true,
     "supported_architectures": [
