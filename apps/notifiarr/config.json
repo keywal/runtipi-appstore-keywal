@@ -14,7 +14,7 @@
     "utilities"
   ],
   "version": "latest",
-  "tipi_version": 1,
+  "tipi_version": 4,
   "source": "https://github.com/Notifiarr/notifiarr",
   "force_expose": false,
   "generate_vapid_keys": false,

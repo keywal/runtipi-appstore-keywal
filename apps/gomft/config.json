@@ -9,7 +9,7 @@
     "utilities"
   ],
   "description": "GoMFT is a web-based managed file transfer application built with Go, leveraging rclone for robust file transfer capabilities. It provides a user-friendly interface for configuring, scheduling, and monitoring file transfers across various storage providers.",
-  "tipi_version": 2,
+  "tipi_version": 4,
   "version": "v0.2.11",
   "min_tipi_version": "4.5.0",
   "source": "https://github.com/starfleetcptn/gomft",
