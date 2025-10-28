@@ -37,7 +37,6 @@
         "QBT_SKIP_CLEANUP": "false",
         "QBT_DRY_RUN": "false",
         "QBT_LOG_LEVEL": "INFO",
-        "QBT_DIVIDER": "",
         "QBT_WIDTH": "100"
       }
     }
