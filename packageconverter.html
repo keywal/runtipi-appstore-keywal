@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en" class="dark"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipi App Package Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; 
+            color: #d1d5db; 
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #1f2937; 
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .input-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #9ca3af; 
+        }
+        .input-field, .textarea-field {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #4b5563; 
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+            background-color: #374151; 
+            color: #f3f4f6; 
+        }
+        .input-field::placeholder, .textarea-field::placeholder {
+            color: #9ca3af; 
+        }
+        .input-field:focus, .textarea-field:focus {
+            outline: none;
+            border-color: #6366f1; 
+            box-shadow: 0 0 0 2px #4f46e5; 
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            color: #d1d5db;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+        }
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 0.5rem;
+            accent-color: #4f46e5;
+            height: 1rem;
+            width: 1rem;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border: 1px solid transparent;
+        }
+        .btn-primary { background-color: #4f46e5; color: white; }
+        .btn-primary:hover { background-color: #6366f1; }
+        .btn-secondary { background-color: #4b5563; color: #e5e7eb; }
+        .btn-secondary:hover { background-color: #6b7280; }
+        .btn-danger { background-color: #ef4444; color: white; }
+        .btn-danger:hover { background-color: #f87171; }
+        /* Removed .btn-gemini and .loading-spinner as Gemini features are removed */
+        
+        .message { margin-bottom: 1rem; font-size: 0.875rem; padding: 0.75rem; border-radius: 0.375rem; }
+        .error-message { color: #f87171; background-color: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); }
+        .success-message { color: #34d399; background-color: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.3); }
+        .info-message { color: #60a5fa; background-color: rgba(96, 165, 250, 0.1); border: 1px solid rgba(96, 165, 250, 0.3); }
+
+        .step-view { border: 1px solid #374151; padding: 1.5rem; border-radius: 0.5rem; margin-top: 1.5rem; background-color: #1f2937; }
+        .category-checkbox-group, .arch-checkbox-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem; margin-bottom: 1rem; }
+        .category-checkbox-label { display: flex; align-items: center; padding: 0.5rem; border: 1px solid #4b5563; border-radius: 0.375rem; cursor: pointer; color: #d1d5db; }
+        .category-checkbox-label:hover { background-color: #374151; }
+        .category-checkbox-label input { margin-right: 0.5rem; accent-color: #4f46e5; }
+        
+        .preview-section { margin-top: 1.5rem; padding: 1rem; background-color: #374151; border-radius: 0.375rem; }
+        .preview-title { font-weight: 600; color: #9ca3af; margin-bottom: 0.5rem; }
+        .json-preview, .markdown-preview { background-color: #0f172a; color: #94a3b8; padding: 1rem; border-radius: 0.375rem; overflow-x: auto; max-height: 200px; font-family: monospace; font-size: 0.875rem; margin-top: 0.5rem; border: 1px solid #334155; white-space: pre-wrap; }
+        .logo-preview-img { max-width: 200px; max-height: 200px; border: 1px solid #4b5563; border-radius: 0.375rem; margin-top: 0.5rem; display: block; margin-left: auto; margin-right: auto;}
+        .suggested-logo-img {
+            width: 64px; 
+            height: 64px; 
+            object-fit: contain; border: 2px solid transparent;
+            border-radius: 0.25rem; cursor: pointer; transition: border-color 0.2s;
+            background-color: #4b5563; 
+        }
+        .suggested-logo-img:hover { border-color: #6366f1; }
+        .logo-suggestions-container { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; padding: 0.5rem; border: 1px dashed #4b5563; border-radius: 0.375rem; min-height: 78px; }
+
+
+        .hidden { display: none; }
+        h1, h2, h3 { color: #e5e7eb; }
+        .button-group { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+        .button-group button.active { background-color: #4f46e5; color: white; border-color: #4f46e5; }
+        .button-group button:not(.active) { background-color: #4b5563; color: #e5e7eb; border-color: #6b7280; }
+        .button-group button:not(.active):hover { background-color: #6b7280; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 1.5rem; }
+        .landing-logo { max-width: 312px; margin: 1rem auto 2rem auto; display: block; }
+        .grid-cols-2-responsive { grid-template-columns: 1fr; } 
+        @media (min-width: 768px) { 
+            .grid-cols-2-responsive { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="mainTitle" class="text-2xl font-bold mb-6 text-center">Tipi App Package Converter</h1>
+
+        <div id="globalMessageArea" class="text-center"></div>
+        
+        <div id="viewLandingPage" class="step-view text-center">
+            <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/webp/tipi.webp" alt="Tipi Logo" class="landing-logo" onerror="this.src='https://placehold.co/312x312/1f2937/d1d5db?text=Tipi+Logo'; this.onerror=null;">
+            <h2 class="text-xl font-semibold mb-4">Welcome!</h2>
+            <p class="mb-6 text-gray-400">This tool will help you convert a Docker Compose YAML file into a Tipi app package structure, including JSON configurations and metadata.</p>
+            <button id="btnStartAppConverter" class="btn btn-primary btn-lg px-8 py-3 text-lg">Start App Package Converter</button>
+        </div>
+
+
+        <div id="viewYamlInput" class="step-view hidden">
+            <h2 class="text-xl font-semibold mb-4">Step 1: Docker Compose YAML</h2>
+            <p class="text-sm text-gray-400 mb-2">
+                1. For environment variables that you want users to provide during app setup, use the value <code>{ASK}</code>.
+                Example: <code>DATABASE_PASSWORD={ASK}</code>. These will become form fields in the finished json. Other environment variables where you provide the end value will not be asked of the user during installation of the app.
+            </p>
+            <p class="text-sm text-gray-400 mb-2">
+                2. For volumes or paths you can just use <code>${APP_DATA_DIR}</code> in front of the path.
+                Example: <code>${APP_DATA_DIR}/data:/var/www/html/data</code>.
+            </p>
+            <p class="text-sm text-gray-400 mb-2">
+                Both of these are written here for easy copy and pasting into the below yml.
+            </p>
+            <label for="yamlInput" class="input-label">Paste Docker Compose YAML here:</label>
+            <textarea id="yamlInput" rows="10" class="textarea-field" placeholder="version: '3.8'&#10;services:&#10;  myapp:&#10;    image: myimage:latest&#10;    environment:&#10;      - API_KEY={ASK}&#10;      - REGULAR_VAR=some_value"></textarea>
+            <div class="nav-buttons">
+                <button id="btnBackToLanding" class="btn btn-secondary">Back to Landing</button>
+                <button id="btnToLogoInput" class="btn btn-primary">Next: Logo Details</button>
+            </div>
+        </div>
+
+        <div id="viewLogoInput" class="step-view hidden">
+            <h2 class="text-xl font-semibold mb-4">Step 2: Logo Configuration</h2>
+            <label for="svgUrlInput" class="input-label">SVG File URL (for logo.jpg):</label>
+            <input type="url" id="svgUrlInput" class="input-field" placeholder="Paste SVG URL here (or leave blank to skip logo)">
+            
+            <div id="logoSuggestionsArea">
+                <p class="input-label">Suggested Logos (click to use):</p>
+                <div id="logoSuggestionsContainer" class="logo-suggestions-container">
+                    <p id="logoSearchStatus" class="text-sm text-gray-400">Searching for suggestions...</p>
+                </div>
+            </div>
+
+            <p class="text-sm text-gray-400 mt-1 mb-3">
+                Need an SVG? <a href="https://selfh.st/icons/" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 underline">Click here for icons</a>.
+            </p>
+            <label class="input-label">Background Color for Logo:</label>
+            <div class="button-group justify-center">
+                <button data-bg="white" class="btn logo-bg-btn">White</button>
+                <button data-bg="black" class="btn logo-bg-btn">Black</button>
+                <button data-bg="auto" class="btn logo-bg-btn active">Auto (Tint)</button>
+            </div>
+            <canvas id="logoPreviewCanvas" width="192" height="192" class="border border-gray-600 rounded-lg mx-auto block mb-3 hidden"></canvas> 
+            <div class="nav-buttons">
+                <button id="btnBackToYaml" class="btn btn-secondary">Back: YAML</button>
+                <button id="btnToMetadataInput" class="btn btn-primary">Next: App Details</button>
+            </div>
+        </div>
+
+        <div id="viewMetadataInput" class="step-view hidden">
+            <h2 class="text-xl font-semibold mb-4">Step 3: Application Metadata</h2>
+            <div class="grid grid-cols-2-responsive gap-x-6"> 
+                <div>
+                    <label for="authorInput" class="input-label">Author:</label>
+                    <input type="text" id="authorInput" class="input-field" placeholder="e.g., John Doe">
+                
+                    <label for="websiteInput" class="input-label">Website URL (optional):</label>
+                    <input type="url" id="websiteInput" class="input-field" placeholder="e.g., https://example.com">
+
+                    <label for="sourceUrlInput" class="input-label">Source URL (e.g., GitHub):</label>
+                    <input type="url" id="sourceUrlInput" class="input-field" placeholder="https://github.com/user/repo">
+                </div>
+                <div>
+                    <label class="input-label">App Behavior Options:</label>
+                    <label class="checkbox-label"><input type="checkbox" id="exposableInput"> App is Exposable (Direct Port Access)</label>
+                    <label class="checkbox-label"><input type="checkbox" id="noGuiInput"> No GUI (CLI/Backend App)</label>
+                    <label class="checkbox-label"><input type="checkbox" id="dynamicConfigInput"> Dynamic Config (allows runtime config changes)</label>
+                </div>
+            </div>
+
+            <hr class="my-6 border-gray-700">
+
+            <div>
+                <label for="shortDescriptionInput" class="input-label mb-0">Short Description (for config.json, max 150 chars):</label>
+                <input type="text" id="shortDescriptionInput" class="input-field" placeholder="A concise summary for app listings." maxlength="150">
+            </div>
+            <div>
+                <label for="longDescriptionMdInput" class="input-label">Long Description (Markdown for metadata/description.md):</label>
+                <textarea id="longDescriptionMdInput" rows="5" class="textarea-field" placeholder="Enter full app details, features, setup notes, etc. Supports Markdown."></textarea>
+            </div>
+            <div>
+                <label class="input-label mb-0">Categories (select one or more, optional):</label>
+                <div id="categoriesContainer" class="category-checkbox-group"></div>
+            </div>
+            <div class="nav-buttons">
+                <button id="btnBackToLogo" class="btn btn-secondary">Back: Logo</button>
+                <button id="btnToReview" class="btn btn-primary">Review Package</button>
+            </div>
+        </div>
+        
+        <div id="viewReview" class="step-view hidden">
+            <h2 class="text-xl font-semibold mb-4">Step 4: Review Your App Package</h2>
+            <h3 class="text-lg font-medium mb-2">App Name: <span id="reviewAppName" class="text-indigo-400"></span></h3>
+            
+            <div class="space-y-6"> 
+                <div class="preview-section">
+                    <h4 class="preview-title">Logo Preview (logo.jpg):</h4>
+                    <img id="reviewLogoPreview" src="#" alt="Logo Preview" class="logo-preview-img hidden">
+                    <p id="reviewNoLogoMsg" class="text-sm text-gray-400">No logo will be generated.</p>
+                </div>
+                <div class="preview-section">
+                    <h4 class="preview-title">Long Description (metadata/description.md):</h4>
+                    <pre id="reviewDescriptionMd" class="markdown-preview"></pre>
+                </div>
+                <div class="preview-section">
+                    <h4 class="preview-title">Config (config.json):</h4>
+                    <pre id="reviewConfigJson" class="json-preview"></pre>
+                </div>
+                <div class="preview-section">
+                    <h4 class="preview-title">Docker Compose (docker-compose.json):</h4>
+                    <pre id="reviewDockerComposeJson" class="json-preview"></pre>
+                </div>
+            </div>
+
+            <div class="nav-buttons mt-6">
+                <button id="btnEditPackage" class="btn btn-secondary">Edit Details</button>
+                <button id="btnCreateZip" class="btn btn-primary">Accept & Create ZIP Package</button>
+            </div>
+        </div>
+
+        <div id="viewDownloadComplete" class="step-view hidden text-center">
+            <h2 class="text-xl font-semibold mb-4">Package Ready!</h2>
+            <p id="downloadCompleteMessage" class="success-message message"></p>
+            <button id="btnConvertAnother" class="btn btn-primary w-full mt-4">Convert Another App</button>
+        </div>
+
+
+    </div>
+
+    <script>
+        // --- SCHEMA CONSTANTS (Hardcoded fallbacks) ---
+        // Fallback content is kept as a safety measure in case the new URLs fail and the old ones did too.
+        const APP_INFO_SCHEMA_FALLBACK_CONTENT = `{"type":"object","properties":{"id":{"type":"string"},"available":{"type":"boolean"},"deprecated":{"type":"boolean","default":false},"port":{"type":"number","minimum":1,"maximum":65535},"name":{"type":"string"},"description":{"type":"string","default":""},"version":{"type":"string","default":"latest"},"tipi_version":{"type":"number"},"short_desc":{"type":"string"},"author":{"type":"string"},"source":{"type":"string"},"website":{"type":"string"},"force_expose":{"type":"boolean","default":false},"generate_vapid_keys":{"type":"boolean","default":false},"categories":{"type":"array","items":{"type":"string","enum":["network","media","development","automation","social","utilities","photography","security","featured","books","data","music","finance","gaming","ai"]},"default":[]},"url_suffix":{"type":"string"},"form_fields":{"type":"array","items":{"type":"object","properties":{"type":{"type":"string","enum":["text","password","email","number","fqdn","ip","fqdnip","url","random","boolean"]},"label":{"type":"string"},"placeholder":{"type":"string"},"max":{"type":"number"},"min":{"type":"number"},"hint":{"type":"string"},"options":{"type":"array","items":{"type":"object","properties":{"label":{"type":"string"},"value":{"type":"string"}},"required":["label","value"]}},"required":{"type":"boolean","default":false},"default":{"type":["boolean","string","number"]},"regex":{"type":"string"},"pattern_error":{"type":"string"},"env_variable":{"type":"string"},"encoding":{"type":"string","enum":["hex","base64"]}},"required":["type","label","env_variable"]},"default":[]},"https":{"type":"boolean","default":false},"exposable":{"type":"boolean","default":false},"no_gui":{"type":"boolean","default":false},"supported_architectures":{"type":"array","items":{"type":"string","enum":["arm64","amd64"]}, "default": ["amd64", "arm64"]},"uid":{"type":"number"},"gid":{"type":"number"},"dynamic_config":{"type":"boolean","default":true},"min_tipi_version":{"type":"string"},"created_at":{"type":"integer","minimum":0,"default":0},"updated_at":{"type":"integer","minimum":0,"default":0},"force_pull":{"type":"boolean","default":false}},"required":["id","available","name","tipi_version","short_desc","author","source"]}`;
+        
+        // --- FIX START: Restructure fallback to match live schema ($ref) ---
+        const DYNAMIC_COMPOSE_SCHEMA_FALLBACK_CONTENT = `{"type":"object","properties":{"services":{"type":"array","items":{"$ref":"#/definitions/service"}}},"required":["services"],"definitions":{"service":{"type":"object","properties":{"image":{"type":"string"},"name":{"type":"string"},"internalPort":{"type":["number","string"]},"isMain":{"type":"boolean"},"networkMode":{"type":"string"},"extraHosts":{"type":"array","items":{"type":"string"}},"ulimits":{"type":"object","properties":{"nproc":{"anyOf":[{"type":"number"},{"type":"object","properties":{"soft":{"type":"number"},"hard":{"type":"number"}},"required":["soft","hard"]}]},"nofile":{"anyOf":[{"type":"number"},{"type":"object","properties":{"soft":{"type":"number"},"hard":{"type":"number"}},"required":["soft","hard"]}]},"core":{"anyOf":[{"type":"number"},{"type":"object","properties":{"soft":{"type":"number"},"hard":{"type":"number"}},"required":["soft","hard"]}]},"memlock":{"anyOf":[{"type":"number"},{"type":"object","properties":{"soft":{"type":"number"},"hard":{"type":"number"}},"required":["soft","hard"]}]}}},"addToMainNetwork":{"type":"boolean"},"addPorts":{"type":"array","items":{"type":"object","properties":{"containerPort":{"type":["number","string"]},"hostPort":{"type":["number","string"]},"udp":{"type":"boolean"},"tcp":{"type":"boolean"},"interface":{"type":"string"}},"required":["containerPort","hostPort"]}},"command":{"anyOf":[{"type":"string"},{"type":"array","items":{"type":"string"}}]},"volumes":{"type":"array","items":{"type":"object","properties":{"hostPath":{"type":"string"},"containerPath":{"type":"string"},"readOnly":{"type":"boolean"},"shared":{"type":"boolean"},"private":{"type":"boolean"}},"required":["hostPath","containerPath"]}},"environment":{"type":"object","additionalProperties":{"type":["string","number","boolean","null"]}},"sysctls":{"type":"object","additionalProperties":{"type":["string","number"]}},"healthCheck":{"type":"object","properties":{"test":{"type":"string"},"interval":{"type":"string"},"timeout":{"type":"string"},"retries":{"type":"number"},"startInterval":{"type":"string"},"startPeriod":{"type":"string"}},"required":["test"]},"dependsOn":{"anyOf":[{"type":"array","items":{"type":"string"}},{"type":"object","additionalProperties":{"type":"object","properties":{"condition":{"type":"string","enum":["service_healthy","service_started","service_completed_successfully"]}},"required":["condition"]}}]},"capAdd":{"type":"array","items":{"type":"string"}},"deploy":{"type":"object","properties":{"resources":{"type":"object","properties":{"limits":{"type":"object","properties":{"cpus":{"type":"string"},"memory":{"type":"string"},"pids":{"type":"number"}}},"reservations":{"type":"object","properties":{"cpus":{"type":"string"},"memory":{"type":"string"},"devices":{"type":"array","items":{"type":"object","properties":{"capabilities":{"type":"array","items":{"type":"string"}},"driver":{"type":"string"},"count":{"anyOf":[{"type":"string","enum":["all"]},{"type":"number"}]},"deviceIds":{"type":"array","items":{"type":"string"}}},"required":["capabilities"]}}}}}}}},"hostname":{"type":"string"},"devices":{"type":"array","items":{"type":"string"}},"entrypoint":{"anyOf":[{"type":"string"},{"type":"array","items":{"type":"string"}}]},"pid":{"type":"string"},"privileged":{"type":"boolean"},"tty":{"type":"boolean"},"user":{"type":"string"},"workingDir":{"type":"string"},"shmSize":{"type":"string"},"capDrop":{"type":"array","items":{"type":"string"}},"logging":{"type":"object","properties":{"driver":{"type":"string"},"options":{"type":"object","additionalProperties":{"type":"string"}}},"required":["driver"]},"readOnly":{"type":"boolean"},"securityOpt":{"type":"array","items":{"type":"string"}},"stopSignal":{"type":"string"},"stopGracePeriod":{"type":"string"},"stdinOpen":{"type":"boolean"},"extraLabels":{"type":"object","additionalProperties":{"type":["string","boolean"]}}},"required":["image","name"]}}}`;
+        // --- FIX END ---
+        
+        let APP_INFO_SCHEMA = null;
+        let DYNAMIC_COMPOSE_SCHEMA = null;
+
+        // --- DOM Elements ---
+        const allViews = document.querySelectorAll('.step-view');
+        const globalMessageArea = document.getElementById('globalMessageArea');
+        const mainTitleEl = document.getElementById('mainTitle'); 
+        
+        const viewLandingPage = document.getElementById('viewLandingPage');
+        const btnStartAppConverter = document.getElementById('btnStartAppConverter');
+
+        const viewYamlInput = document.getElementById('viewYamlInput');
+        const yamlInputEl = document.getElementById('yamlInput');
+        const btnToLogoInput = document.getElementById('btnToLogoInput');
+        const btnBackToLanding = document.getElementById('btnBackToLanding'); 
+
+        const viewLogoInput = document.getElementById('viewLogoInput');
+        const svgUrlInputEl = document.getElementById('svgUrlInput');
+        const logoBgButtons = document.querySelectorAll('.logo-bg-btn');
+        const logoPreviewCanvas = document.getElementById('logoPreviewCanvas');
+        const logoPreviewCtx = logoPreviewCanvas.getContext('2d');
+        const logoSuggestionsContainerEl = document.getElementById('logoSuggestionsContainer');
+        const logoSearchStatusEl = document.getElementById('logoSearchStatus');
+        const btnBackToYaml = document.getElementById('btnBackToYaml');
+        const btnToMetadataInput = document.getElementById('btnToMetadataInput');
+
+        const viewMetadataInput = document.getElementById('viewMetadataInput');
+        const authorInputEl = document.getElementById('authorInput');
+        const websiteInputEl = document.getElementById('websiteInput');
+        const shortDescriptionInputEl = document.getElementById('shortDescriptionInput'); 
+        const longDescriptionMdInputEl = document.getElementById('longDescriptionMdInput'); 
+        const categoriesContainerEl = document.getElementById('categoriesContainer');
+        const sourceUrlInputEl = document.getElementById('sourceUrlInput');
+        const exposableInputEl = document.getElementById('exposableInput'); 
+        const noGuiInputEl = document.getElementById('noGuiInput'); 
+        const dynamicConfigInputEl = document.getElementById('dynamicConfigInput'); 
+        const btnBackToLogo = document.getElementById('btnBackToLogo');
+        const btnToReview = document.getElementById('btnToReview');
+
+        const viewReview = document.getElementById('viewReview');
+        const reviewAppNameEl = document.getElementById('reviewAppName');
+        const reviewLogoPreviewEl = document.getElementById('reviewLogoPreview');
+        const reviewNoLogoMsgEl = document.getElementById('reviewNoLogoMsg');
+        const reviewDescriptionMdEl = document.getElementById('reviewDescriptionMd');
+        const reviewConfigJsonEl = document.getElementById('reviewConfigJson');
+        const reviewDockerComposeJsonEl = document.getElementById('reviewDockerComposeJson');
+        const btnEditPackage = document.getElementById('btnEditPackage'); 
+        const btnCreateZip = document.getElementById('btnCreateZip');
+
+        const viewDownloadComplete = document.getElementById('viewDownloadComplete');
+        const downloadCompleteMessageEl = document.getElementById('downloadCompleteMessage');
+        const btnConvertAnother = document.getElementById('btnConvertAnother');
+
+        const FORM_FIELD_TAG = '{ASK}'; 
+        let conversionData = {}; 
+
+        async function fetchSchema(url, fallbackContentString) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    console.warn(`Failed to fetch schema from ${url}. Status: ${response.status}. Using fallback.`);
+                    return JSON.parse(fallbackContentString);
+                }
+                const schemaJson = await response.json();
+                console.log(`Successfully fetched schema from ${url}`);
+                return schemaJson;
+            } catch (error) {
+                console.error(`Error fetching or parsing schema from ${url}:`, error, ". Using fallback.");
+                return JSON.parse(fallbackContentString);
+            }
+        }
+
+        async function loadSchemas() {
+            // Updated schema URLs
+            const appInfoSchemaUrl = 'https://schemas.runtipi.io/app-info.json';
+            const dynamicComposeSchemaUrl = 'https://schemas.runtipi.io/dynamic-compose.json';
+            
+            [APP_INFO_SCHEMA, DYNAMIC_COMPOSE_SCHEMA] = await Promise.all([
+                fetchSchema(appInfoSchemaUrl, APP_INFO_SCHEMA_FALLBACK_CONTENT),
+                fetchSchema(dynamicComposeSchemaUrl, DYNAMIC_COMPOSE_SCHEMA_FALLBACK_CONTENT)
+            ]);
+        }
+
+
+        function initializeConversionData() {
+            conversionData = {
+                yamlText: '', composeData: null, appName: '',
+                svgUrl: '', logoBg: 'auto', generatedLogoDataUrl: null, 
+                author: '', website: '', shortDescription: '', longDescriptionMdContent: '', categories: [],
+                sourceUrl: '', 
+                minTipiVersion: APP_INFO_SCHEMA ? getSchemaDefault("properties.min_tipi_version.default", APP_INFO_SCHEMA) || "0.0.0" : "0.0.0",
+                urlSuffix: APP_INFO_SCHEMA ? getSchemaDefault("properties.url_suffix.default", APP_INFO_SCHEMA) || "" : "",
+                supportedArchitectures: APP_INFO_SCHEMA ? getSchemaDefault("properties.supported_architectures.default", APP_INFO_SCHEMA) || ["amd64", "arm64"] : ["amd64", "arm64"], 
+                https: APP_INFO_SCHEMA ? getSchemaDefault("properties.https.default", APP_INFO_SCHEMA) : false,
+                exposable: APP_INFO_SCHEMA ? getSchemaDefault("properties.exposable.default", APP_INFO_SCHEMA) : false, 
+                no_gui: APP_INFO_SCHEMA ? getSchemaDefault("properties.no_gui.default", APP_INFO_SCHEMA) : false, 
+                force_pull: APP_INFO_SCHEMA ? getSchemaDefault("properties.force_pull.default", APP_INFO_SCHEMA) : false,
+                force_expose: APP_INFO_SCHEMA ? getSchemaDefault("properties.force_expose.default", APP_INFO_SCHEMA) : false,
+                generate_vapid_keys: APP_INFO_SCHEMA ? getSchemaDefault("properties.generate_vapid_keys.default", APP_INFO_SCHEMA) : false,
+                dynamic_config: true, 
+                configJson: null, dockerComposeJson: null, 
+            };
+        }
+        
+        function showView(viewId) {
+            allViews.forEach(view => view.classList.add('hidden'));
+            const targetView = document.getElementById(viewId);
+            if (targetView) {
+                targetView.classList.remove('hidden');
+                if (viewId === 'viewLandingPage') mainTitleEl.textContent = 'Tipi App Package Converter';
+                else if (conversionData.appName) mainTitleEl.textContent = `Converter: ${conversionData.appName}`;
+                else mainTitleEl.textContent = 'Tipi App Package Converter';
+            } else console.error("View not found:", viewId);
+            window.scrollTo(0, 0); 
+        }
+
+        function showGlobalMessage(message, type = "info", autoClear = true) {
+            const className = type === 'error' ? 'error-message' : (type === 'success' ? 'success-message' : 'info-message');
+            globalMessageArea.innerHTML = `<p class="message ${className}">${message}</p>`;
+            if (autoClear && (type === 'error' || type === 'info')) { 
+                 setTimeout(() => { if (globalMessageArea.firstChild && globalMessageArea.firstChild.textContent === message) clearGlobalMessage(); }, 5000);
+            }
+        }
+        function clearGlobalMessage() { globalMessageArea.innerHTML = ""; }
+
+        function getSchemaDefault(schemaPath, schemaData) { 
+            if (!schemaData) {
+                console.warn("getSchemaDefault called before schema was loaded for path:", schemaPath);
+                return undefined;
+            }
+            const keys = schemaPath.split('.'); 
+            let val = schemaData; 
+            try { for (const key of keys) { val = val[key]; } return val; } 
+            catch (e) { return undefined; } 
+        };
+        parseImageVersion = (imageNameWithTag) => { if (imageNameWithTag && typeof imageNameWithTag === 'string' && imageNameWithTag.includes(':')) { return imageNameWithTag.split(':').pop(); } return "latest"; };
+        parsePorts = (portMappings) => { const parsed = []; if (!portMappings || !Array.isArray(portMappings)) return parsed; for (const portEntry of portMappings) { let entryStr = String(portEntry), protoTcp = entryStr.toLowerCase().includes("tcp"), protoUdp = entryStr.toLowerCase().includes("udp"); if (!protoTcp && !protoUdp) protoTcp = true; entryStr = entryStr.split('/')[0]; const parts = entryStr.split(':'); let hostPort, containerPort; if (parts.length === 1) { hostPort = parts[0]; containerPort = parts[0]; } else if (parts.length === 2) { hostPort = parts[0]; containerPort = parts[1]; } else if (parts.length === 3) { hostPort = parts[1]; containerPort = parts[2]; } else { console.warn(`Could not parse port entry: ${portEntry}`); continue; } parsed.push({ hostPort: String(hostPort), containerPort: String(containerPort), tcp: protoTcp, udp: protoUdp }); } return parsed; };
+        parseVolumes = (volumeMappings) => { const parsed = []; if (!volumeMappings || !Array.isArray(volumeMappings)) return parsed; for (const volEntry of volumeMappings) { const parts = String(volEntry).split(':'); if (parts.length >= 2) { parsed.push({ hostPath: parts[0], containerPath: parts[1], readOnly: parts.length > 2 && parts[2].toLowerCase().includes('ro') }); } else { console.warn(`Volume entry '${volEntry}' might be a simple named volume. Skipping.`); } } return parsed; };
+
+        function generateConfigJsonInternal() { 
+            if (!APP_INFO_SCHEMA) {
+                showGlobalMessage("App Info Schema not loaded. Cannot generate config.json.", "error");
+                return {};
+            }
+            const configOutput = {};
+            const services = conversionData.composeData.services || {};
+            const mainServiceName = conversionData.appName;
+            const mainService = services[mainServiceName];
+
+            configOutput.id = mainServiceName;
+            configOutput.available = true;
+            configOutput.deprecated = getSchemaDefault("properties.deprecated.default", APP_INFO_SCHEMA);
+            
+            let appPort = null;
+            if (conversionData.dockerComposeJson && conversionData.dockerComposeJson.services) {
+                const mainDynamicService = conversionData.dockerComposeJson.services.find(s => s.name === mainServiceName && s.isMain);
+                if (mainDynamicService && mainDynamicService.addPorts && mainDynamicService.addPorts.length > 0) {
+                    try { appPort = parseInt(mainDynamicService.addPorts[0].hostPort, 10); if (isNaN(appPort)) appPort = null; } 
+                    catch (e) { console.warn(`Could not determine host port for '${mainServiceName}'.`);}
+                }
+            }
+            if (appPort !== null) configOutput.port = appPort;
+
+            configOutput.name = mainServiceName;
+            configOutput.description = conversionData.shortDescription || `Short description for ${mainServiceName}`; 
+            configOutput.short_desc = conversionData.shortDescription || `Short description for ${mainServiceName}`;
+            configOutput.author = conversionData.author || "Unknown Author"; 
+            configOutput.website = conversionData.website || "";
+            configOutput.categories = conversionData.categories.length > 0 ? conversionData.categories : (getSchemaDefault("properties.categories.default", APP_INFO_SCHEMA) || []);
+            configOutput.version = mainService && mainService.image ? parseImageVersion(mainService.image) : "latest";
+            configOutput.tipi_version = 1; 
+            configOutput.source = conversionData.sourceUrl || (mainService && mainService.labels && mainService.labels['org.opencontainers.image.source']) || "https://github.com/example/repo"; 
+            
+            configOutput.exposable = conversionData.exposable; 
+            configOutput.no_gui = conversionData.no_gui;
+            configOutput.dynamic_config = conversionData.dynamic_config; 
+
+            configOutput.force_expose = conversionData.force_expose; 
+            configOutput.generate_vapid_keys = conversionData.generate_vapid_keys; 
+            configOutput.https = conversionData.https; 
+            configOutput.supported_architectures = conversionData.supportedArchitectures; 
+            configOutput.min_tipi_version = conversionData.minTipiVersion; 
+            configOutput.force_pull = conversionData.force_pull; 
+            if (conversionData.urlSuffix) configOutput.url_suffix = conversionData.urlSuffix;
+
+
+            const formFields = [];
+            if (conversionData.composeData && conversionData.composeData.services) {
+                for (const [serviceNameIter, serviceDetails] of Object.entries(conversionData.composeData.services)) {
+                    let environment = serviceDetails.environment || [], envList = [];
+                    if (Array.isArray(environment)) envList = environment;
+                    else if (typeof environment === 'object' && environment !== null) envList = Object.entries(environment).map(([k, v]) => `${k}=${v}`);
+                    for (const envItem of envList) {
+                        if (envItem.includes('=')) {
+                            const [varName, varValueStr] = envItem.split('=', 2); 
+                            if (varValueStr === FORM_FIELD_TAG) { 
+                                let fieldType = "text", lowerVarName = varName.toLowerCase();
+                                if (lowerVarName.includes("password")) fieldType = "password";
+                                else if (lowerVarName.includes("email")) fieldType = "email";
+                                else if (lowerVarName.includes("url") || lowerVarName.includes("uri")) fieldType = "url";
+                                formFields.push({ type: fieldType, label: `${varName.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} (${serviceNameIter})`, env_variable: varName, default: "", placeholder: `Enter value for ${varName}`, required: true });
+                            }
+                        }
+                    }
+                }
+            }
+            configOutput.form_fields = formFields.length > 0 ? formFields : getSchemaDefault("properties.form_fields.default", APP_INFO_SCHEMA);
+            
+            const userInfo = mainService && mainService.user;
+            if (userInfo && typeof userInfo === 'string' && userInfo.includes(':')) {
+                try { const [uid, gid] = userInfo.split(':').map(Number); if (!isNaN(uid)) configOutput.uid = uid; if (!isNaN(gid)) configOutput.gid = gid; } 
+                catch (e) { console.warn(`Could not parse UID/GID from user '${userInfo}'.`); }
+            }
+            const currentTimestamp = Math.floor(Date.now() / 1000);
+            configOutput.created_at = currentTimestamp; configOutput.updated_at = currentTimestamp;
+            
+            const finalConfig = {};
+            for (const [key, value] of Object.entries(configOutput)) { if (APP_INFO_SCHEMA.properties.hasOwnProperty(key)) finalConfig[key] = value; }
+            (APP_INFO_SCHEMA.required || []).forEach(reqKey => {
+                if (!finalConfig.hasOwnProperty(reqKey)) {
+                    const defaultVal = getSchemaDefault(`properties.${reqKey}.default`, APP_INFO_SCHEMA);
+                    if (defaultVal !== undefined) finalConfig[reqKey] = defaultVal;
+                    else {
+                        console.warn(`Required field '${reqKey}' for config.json is missing.`);
+                        const propType = (APP_INFO_SCHEMA.properties[reqKey] || {}).type;
+                        if (propType === "string") finalConfig[reqKey] = `placeholder_${reqKey}`;
+                        else if (propType === "boolean") finalConfig[reqKey] = false;
+                        else if (propType === "number" || propType === "integer") finalConfig[reqKey] = 0;
+                        else if (propType === "array") finalConfig[reqKey] = [];
+                        else if (propType === "object") finalConfig[reqKey] = {}; else finalConfig[reqKey] = null;
+                    }
+                }
+            });
+            return finalConfig;
+        }
+
+        function generateDynamicComposeJsonInternal() { 
+            if (!DYNAMIC_COMPOSE_SCHEMA) {
+                showGlobalMessage("Dynamic Compose Schema not loaded. Cannot generate docker-compose.json.", "error");
+                return { services: [] };
+            }
+
+            // --- FIX START ---
+            // The live schema has a different structure (uses anyOf, no definitions block).
+            // We check for the live schema structure first, then the fallback structure.
+            let serviceSchemaProps = null;
+            let serviceSchemaRequired = [];
+
+            if (DYNAMIC_COMPOSE_SCHEMA.anyOf && DYNAMIC_COMPOSE_SCHEMA.anyOf[0] && DYNAMIC_COMPOSE_SCHEMA.anyOf[0].properties && DYNAMIC_COMPOSE_SCHEMA.anyOf[0].properties.services && DYNAMIC_COMPOSE_SCHEMA.anyOf[0].properties.services.items && DYNAMIC_COMPOSE_SCHEMA.anyOf[0].properties.services.items.properties) {
+                // Path for the live schema (https://schemas.runtipi.io/dynamic-compose.json)
+                serviceSchemaProps = DYNAMIC_COMPOSE_SCHEMA.anyOf[0].properties.services.items.properties;
+                serviceSchemaRequired = DYNAMIC_COMPOSE_SCHEMA.anyOf[0].properties.services.items.required || [];
+
+            } else if (DYNAMIC_COMPOSE_SCHEMA.definitions && DYNAMIC_COMPOSE_SCHEMA.definitions.service && DYNAMIC_COMPOSE_SCHEMA.definitions.service.properties) {
+                // Path for the hardcoded fallback schema
+                serviceSchemaProps = DYNAMIC_COMPOSE_SCHEMA.definitions.service.properties;
+                serviceSchemaRequired = DYNAMIC_COMPOSE_SCHEMA.definitions.service.required || [];
+            
+            } else {
+                // If neither structure is found, fail.
+                console.error("Dynamic compose schema definitions are missing or malformed.", DYNAMIC_COMPOSE_SCHEMA);
+                showGlobalMessage("Dynamic Compose Schema is malformed. Cannot generate docker-compose.json.", "error");
+                return { services: [] }; // Stop execution
+            }
+            // --- FIX END ---
+
+            const outputServices = [];
+            const services = conversionData.composeData.services || {};
+            let isFirstService = true;
+            for (const [serviceName, details] of Object.entries(services)) {
+                const serviceObj = { name: serviceName };
+                serviceObj.image = details.image; serviceObj.isMain = isFirstService; isFirstService = false;
+                const parsedP = parsePorts(details.ports);
+                if (parsedP.length > 0) { serviceObj.addPorts = parsedP; if (parsedP[0] && parsedP[0].containerPort) serviceObj.internalPort = parsedP[0].containerPort; }
+                if (details.network_mode) serviceObj.networkMode = details.network_mode;
+                if (details.extra_hosts) serviceObj.extraHosts = details.extra_hosts;
+                if (details.ulimits) serviceObj.ulimits = details.ulimits;
+                if (details.command) serviceObj.command = details.command;
+                const parsedV = parseVolumes(details.volumes);
+                if (parsedV.length > 0) serviceObj.volumes = parsedV;
+                let environmentInput = details.environment, envOutput = {};
+                if (Array.isArray(environmentInput)) {
+                    environmentInput.forEach(item => {
+                        if (item.includes('=')) {
+                            const [key, valueStr] = item.split('=', 2);
+                            if (valueStr === FORM_FIELD_TAG) envOutput[key] = `\${${key}}`; 
+                            else envOutput[key] = String(valueStr); 
+                        }
+                    });
+                } else if (typeof environmentInput === 'object' && environmentInput !== null) {
+                    for (const [key, vOriginal] of Object.entries(environmentInput)) {
+                        if (String(vOriginal) === FORM_FIELD_TAG) envOutput[key] = `\${${key}}`; 
+                        else envOutput[key] = String(vOriginal); 
+                    }
+                }
+                if (Object.keys(envOutput).length > 0) serviceObj.environment = envOutput;
+                if (details.sysctls) serviceObj.sysctls = details.sysctls;
+                if (details.healthcheck) { const hc = details.healthcheck; serviceObj.healthCheck = { test: hc.test, interval: hc.interval, timeout: hc.timeout, retries: hc.retries, startPeriod: hc.start_period, startInterval: hc.start_interval || hc.start_period }; serviceObj.healthCheck = Object.fromEntries(Object.entries(serviceObj.healthCheck).filter(([_, v]) => v != null)); }
+                if (details.depends_on) serviceObj.dependsOn = details.depends_on;
+                if (details.cap_add) serviceObj.capAdd = details.cap_add; if (details.cap_drop) serviceObj.capDrop = details.cap_drop;
+                if (details.deploy && details.deploy.resources) serviceObj.deploy = { resources: details.deploy.resources };
+                if (details.hostname) serviceObj.hostname = details.hostname; if (details.devices) serviceObj.devices = details.devices;
+                if (details.entrypoint) serviceObj.entrypoint = details.entrypoint; if (details.pid) serviceObj.pid = details.pid;
+                if (details.privileged !== undefined) serviceObj.privileged = details.privileged; if (details.tty !== undefined) serviceObj.tty = details.tty;
+                if (details.user) serviceObj.user = details.user; if (details.working_dir) serviceObj.workingDir = details.working_dir;
+                if (details.shm_size) serviceObj.shmSize = details.shm_size; if (details.logging) serviceObj.logging = details.logging;
+                if (details.read_only !== undefined) serviceObj.readOnly = details.read_only; if (details.security_opt) serviceObj.securityOpt = details.security_opt;
+                if (details.stop_signal) serviceObj.stopSignal = details.stop_signal; if (details.stop_grace_period) serviceObj.stopGracePeriod = details.stop_grace_period;
+                if (details.stdin_open !== undefined) serviceObj.stdinOpen = details.stdin_open; if (details.labels) serviceObj.extraLabels = details.labels;
+                
+                // --- FIX START ---
+                // This logic is now fine, as serviceSchemaProps and serviceSchemaRequired
+                // are populated by the new check above.
+                const finalServiceObj = {};
+                // --- FIX END ---
+                
+                for (const [key, value] of Object.entries(serviceObj)) { if (serviceSchemaProps.hasOwnProperty(key)) finalServiceObj[key] = value; }
+
+                // --- FIX START ---
+                // Use serviceSchemaRequired
+                serviceSchemaRequired.forEach(reqKey => {
+                // --- FIX END ---
+                    if (!finalServiceObj.hasOwnProperty(reqKey)) { 
+                        console.warn(`Required field '${reqKey}' for service '${serviceName}' missing.`); // Removed isFinalCall
+                        if (reqKey === "image" && !finalServiceObj.image) finalServiceObj.image = "unknown_image:latest"; 
+                        if (reqKey === "name" && !finalServiceObj.name) finalServiceObj.name = "unknown_service_name"; 
+                    }
+                });
+                outputServices.push(finalServiceObj);
+            }
+            return { services: outputServices };
+        }
+
+        async function generateLogoPreview() {
+            const url = conversionData.svgUrl;
+            if (!url) { logoPreviewCanvas.classList.add('hidden'); conversionData.generatedLogoDataUrl = null; return; }
+            showGlobalMessage('Generating logo preview...', 'info');
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`SVG Fetch Error: ${response.status}`);
+                const svgString = await response.text();
+                const svgImage = await loadSvgAsImageInternal(svgString);
+                const dominantColor = getDominantColorForSvgInternal(svgImage);
+                let finalBgColor;
+                switch (conversionData.logoBg) {
+                    case 'white': finalBgColor = { r: 255, g: 255, b: 255 }; break;
+                    case 'black': finalBgColor = { r: 0, g: 0, b: 0 }; break;
+                    default: finalBgColor = getBackgroundColorForImageInternal(dominantColor); break;
+                }
+                renderToCanvasInternal(logoPreviewCanvas, logoPreviewCtx, svgImage, finalBgColor, 192, 192); 
+                conversionData.generatedLogoDataUrl = logoPreviewCanvas.toDataURL('image/jpeg', 0.9); 
+                logoPreviewCanvas.classList.remove('hidden');
+                clearGlobalMessage();
+            } catch (error) { console.error('Logo Preview Error:', error); showGlobalMessage(`Logo Preview Error: ${error.message}. Logo will not be included.`, 'error'); logoPreviewCanvas.classList.add('hidden'); conversionData.generatedLogoDataUrl = null; }
+        }
+        
+        loadSvgAsImageInternal = (svgString) => new Promise((resolve, reject) => { const img = new Image(); const sanitizedSvgString = svgString.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, ''); const svgBlob = new Blob([sanitizedSvgString], { type: 'image/svg+xml;charset=utf-8' }); const objectUrl = URL.createObjectURL(svgBlob); img.onload = () => { URL.revokeObjectURL(objectUrl); resolve(img); }; img.onerror = (err) => { URL.revokeObjectURL(objectUrl); console.error("Error loading SVG into image:", err); reject(new Error('Could not load SVG.')); }; img.src = objectUrl; });
+        getDominantColorForSvgInternal = (imageElement) => { const tempCanvas = document.createElement('canvas'), tempCtx = tempCanvas.getContext('2d'); const sampleSize = 50; tempCanvas.width = sampleSize; tempCanvas.height = sampleSize; tempCtx.drawImage(imageElement, 0, 0, sampleSize, sampleSize); let colorCounts = {}, maxCount = 0, dominantRgb = { r: 128, g: 128, b: 128 }; try { const imageData = tempCtx.getImageData(0, 0, sampleSize, sampleSize).data; for (let i = 0; i < imageData.length; i += 4) { const r = imageData[i], g = imageData[i+1], b = imageData[i+2], a = imageData[i+3]; if (a > 200) { const R = (r >> 4) << 4, G = (g >> 4) << 4, B = (b >> 4) << 4; const colorKey = `${R},${G},${B}`; colorCounts[colorKey] = (colorCounts[colorKey] || 0) + 1; if (colorCounts[colorKey] > maxCount) { maxCount = colorCounts[colorKey]; dominantRgb = { r: R, g: G, b: B }; } } } } catch (e) { console.warn("CORS/image data issue for dominant color.", e); return { r: 128, g: 128, b: 128 }; } return maxCount === 0 ? { r: 128, g: 128, b: 128 } : dominantRgb; };
+        getBackgroundColorForImageInternal = (rgbColor) => { const baseDarkR = 55, baseDarkG = 65, baseDarkB = 81, mixFactor = 0.3; const r = Math.round((rgbColor.r * mixFactor) + (baseDarkR * (1 - mixFactor)) * 1.2); const g = Math.round((rgbColor.g * mixFactor) + (baseDarkG * (1 - mixFactor)) * 1.2); const b = Math.round((rgbColor.b * mixFactor) + (baseDarkB * (1 - mixFactor)) * 1.2); return { r: Math.min(255, Math.max(0, r)), g: Math.min(255, Math.max(0, g)), b: Math.min(255, Math.max(0, b)) }; };
+        renderToCanvasInternal = (canvas, ctx, imageElement, bgColor, width, height, finalScaleFactor = 0.8) => { canvas.width = width; canvas.height = height; ctx.fillStyle = `rgb(${bgColor.r}, ${bgColor.g}, ${bgColor.b})`; ctx.fillRect(0, 0, width, height); const svgNaturalWidth = imageElement.naturalWidth, svgNaturalHeight = imageElement.naturalHeight; if (svgNaturalWidth === 0 || svgNaturalHeight === 0) { console.error('SVG has zero dimensions.'); return; } const canvasAspect = width / height, svgAspect = svgNaturalWidth / svgNaturalHeight; let initialDrawWidth, initialDrawHeight; if (svgAspect > canvasAspect) { initialDrawWidth = width; initialDrawHeight = width / svgAspect; } else { initialDrawHeight = height; initialDrawWidth = height * svgAspect; } const scaledDrawWidth = initialDrawWidth * finalScaleFactor, scaledDrawHeight = initialDrawHeight * finalScaleFactor; const offsetX = (width - scaledDrawWidth) / 2, offsetY = (height - scaledDrawHeight) / 2; ctx.drawImage(imageElement, offsetX, offsetY, scaledDrawWidth, scaledDrawHeight); };
+
+        async function findLogoSuggestions(appName) {
+            logoSuggestionsContainerEl.innerHTML = ''; 
+            logoSearchStatusEl.textContent = 'Searching for logo suggestions...';
+            logoSearchStatusEl.classList.remove('hidden');
+
+            const sanitizedAppName = appName.toLowerCase().replace(/\s+/g, '-'); 
+            const suggestionUrls = [
+                `https://cdn.jsdelivr.net/gh/selfhst/icons/svg/${sanitizedAppName}.svg`,
+                `https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/${sanitizedAppName}.svg`,
+            ];
+            
+            let suggestionsFound = 0;
+            for (const url of suggestionUrls) {
+                try {
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        const contentType = response.headers.get("content-type");
+                        if (contentType && contentType.includes("image/svg+xml")) {
+                            const img = document.createElement('img');
+                            img.src = url;
+                            img.alt = `Suggested logo for ${appName}`;
+                            img.className = 'suggested-logo-img';
+                            img.title = `Use ${url}`;
+                            img.addEventListener('click', () => {
+                                svgUrlInputEl.value = url;
+                                conversionData.svgUrl = url;
+                                generateLogoPreview();
+                            });
+                            logoSuggestionsContainerEl.appendChild(img);
+                            suggestionsFound++;
+                        }
+                    }
+                } catch (error) {
+                    console.warn(`Could not fetch suggested logo from ${url}:`, error);
+                }
+            }
+
+            if (suggestionsFound > 0) {
+                logoSearchStatusEl.classList.add('hidden');
+            } else {
+                logoSearchStatusEl.textContent = 'No automatic suggestions found. Please provide a URL.';
+            }
+        }
+
+
+        function populateCategories() {
+            if (!APP_INFO_SCHEMA) return; 
+            categoriesContainerEl.innerHTML = ''; 
+            const availableCategories = APP_INFO_SCHEMA.properties.categories.items.enum;
+            const currentCategories = conversionData.categories || [];
+            availableCategories.forEach(cat => {
+                const isChecked = currentCategories.includes(cat) ? 'checked' : '';
+                categoriesContainerEl.innerHTML += `<label class="category-checkbox-label"><input type="checkbox" name="category" value="${cat}" ${isChecked}> ${cat.charAt(0).toUpperCase() + cat.slice(1)}</label>`;
+            });
+        }
+        
+        btnStartAppConverter.addEventListener('click', () => { showView('viewYamlInput'); });
+        btnBackToLanding.addEventListener('click', () => { showView('viewLandingPage'); });
+
+        btnToLogoInput.addEventListener('click', () => {
+            clearGlobalMessage();
+            conversionData.yamlText = yamlInputEl.value.trim();
+            if (!conversionData.yamlText) { showGlobalMessage("YAML input cannot be empty.", "error"); return; }
+            try {
+                conversionData.composeData = jsyaml.load(conversionData.yamlText);
+                if (!conversionData.composeData || typeof conversionData.composeData.services !== 'object' || Object.keys(conversionData.composeData.services).length === 0) {
+                    showGlobalMessage("Invalid Docker Compose. Missing 'services' or services are empty.", "error"); conversionData.composeData = null; return;
+                }
+                conversionData.appName = Object.keys(conversionData.composeData.services)[0];
+                mainTitleEl.textContent = `Converter: ${conversionData.appName}`; 
+                svgUrlInputEl.value = conversionData.svgUrl || ''; 
+                logoBgButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.bg === conversionData.logoBg));
+                
+                findLogoSuggestions(conversionData.appName); 
+
+                if(conversionData.svgUrl) generateLogoPreview(); 
+                else logoPreviewCanvas.classList.add('hidden');
+                showView('viewLogoInput');
+            } catch (e) { showGlobalMessage(`Error parsing YAML: ${e.message}`, "error"); console.error("YAML Parsing Error:", e); conversionData.composeData = null; }
+        });
+
+        btnBackToYaml.addEventListener('click', () => {
+            conversionData.svgUrl = svgUrlInputEl.value.trim(); 
+            showView('viewYamlInput');
+        });
+        
+        btnToMetadataInput.addEventListener('click', async () => {
+            clearGlobalMessage();
+            conversionData.svgUrl = svgUrlInputEl.value.trim();
+            if (conversionData.svgUrl) await generateLogoPreview(); 
+            else { conversionData.generatedLogoDataUrl = null; logoPreviewCanvas.classList.add('hidden'); }
+            
+            authorInputEl.value = conversionData.author || '';
+            websiteInputEl.value = conversionData.website || '';
+            shortDescriptionInputEl.value = conversionData.shortDescription || ''; 
+            longDescriptionMdInputEl.value = conversionData.longDescriptionMdContent || ''; 
+            sourceUrlInputEl.value = conversionData.sourceUrl || '';
+            exposableInputEl.checked = conversionData.exposable;
+            noGuiInputEl.checked = conversionData.no_gui;
+            dynamicConfigInputEl.checked = conversionData.dynamic_config;
+            populateCategories();
+            showView('viewMetadataInput');
+        });
+
+        logoBgButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                conversionData.logoBg = button.dataset.bg;
+                logoBgButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                if (conversionData.svgUrl) generateLogoPreview(); 
+            });
+        });
+        svgUrlInputEl.addEventListener('input', () => { 
+             conversionData.svgUrl = svgUrlInputEl.value.trim();
+             if(conversionData.svgUrl) generateLogoPreview();
+             else { logoPreviewCanvas.classList.add('hidden'); conversionData.generatedLogoDataUrl = null; }
+        });
+
+        btnBackToLogo.addEventListener('click', () => {
+            conversionData.author = authorInputEl.value.trim();
+            conversionData.website = websiteInputEl.value.trim();
+            conversionData.shortDescription = shortDescriptionInputEl.value.trim();
+            conversionData.longDescriptionMdContent = longDescriptionMdInputEl.value.trim();
+            conversionData.sourceUrl = sourceUrlInputEl.value.trim();
+            conversionData.exposable = exposableInputEl.checked;
+            conversionData.no_gui = noGuiInputEl.checked;
+            conversionData.dynamic_config = dynamicConfigInputEl.checked;
+            const selectedCategories = [];
+            document.querySelectorAll('#categoriesContainer input[name="category"]:checked').forEach(checkbox => selectedCategories.push(checkbox.value));
+            conversionData.categories = selectedCategories;
+            showView('viewLogoInput');
+        });
+
+        btnToReview.addEventListener('click', () => {
+            clearGlobalMessage();
+            conversionData.author = authorInputEl.value.trim();
+            conversionData.website = websiteInputEl.value.trim();
+            conversionData.shortDescription = shortDescriptionInputEl.value.trim();
+            conversionData.longDescriptionMdContent = longDescriptionMdInputEl.value.trim();
+            conversionData.sourceUrl = sourceUrlInputEl.value.trim();
+            conversionData.exposable = exposableInputEl.checked;
+            conversionData.no_gui = noGuiInputEl.checked;
+            conversionData.dynamic_config = dynamicConfigInputEl.checked;
+            const selectedCategories = [];
+            document.querySelectorAll('#categoriesContainer input[name="category"]:checked').forEach(checkbox => selectedCategories.push(checkbox.value));
+            conversionData.categories = selectedCategories;
+
+            if (!conversionData.author) { showGlobalMessage("Author cannot be empty for Review.", "error"); return; }
+            if (!conversionData.shortDescription) { showGlobalMessage("Short Description cannot be empty for Review.", "error"); return; }
+            if (!conversionData.longDescriptionMdContent) { showGlobalMessage("Long Description (for description.md) cannot be empty for Review.", "error"); return; }
+            if (!conversionData.sourceUrl) { showGlobalMessage("Source URL cannot be empty for Review.", "error"); return; }
+            
+            conversionData.dockerComposeJson = generateDynamicComposeJsonInternal();
+            conversionData.configJson = generateConfigJsonInternal();
+
+            reviewAppNameEl.textContent = conversionData.appName || 'N/A';
+            if (conversionData.generatedLogoDataUrl) {
+                reviewLogoPreviewEl.src = conversionData.generatedLogoDataUrl;
+                reviewLogoPreviewEl.classList.remove('hidden');
+                reviewNoLogoMsgEl.classList.add('hidden');
+            } else {
+                reviewLogoPreviewEl.classList.add('hidden');
+                reviewLogoPreviewEl.src = '#'; 
+                reviewNoLogoMsgEl.classList.remove('hidden');
+            }
+            reviewDescriptionMdEl.textContent = conversionData.longDescriptionMdContent; 
+            reviewConfigJsonEl.textContent = JSON.stringify(conversionData.configJson, null, 2);
+            reviewDockerComposeJsonEl.textContent = JSON.stringify(conversionData.dockerComposeJson, null, 2);
+            
+            showView('viewReview');
+        });
+        
+        btnEditPackage.addEventListener('click', () => { showView('viewMetadataInput'); });
+
+        btnCreateZip.addEventListener('click', async () => {
+            showGlobalMessage('Creating ZIP package...', 'info');
+            try {
+                const zip = new JSZip();
+                const appFolder = zip.folder(conversionData.appName);
+                const metadataFolder = appFolder.folder("metadata");
+
+                if (conversionData.yamlText) appFolder.file("original-compose.yml", conversionData.yamlText);
+                appFolder.file("docker-compose.json", JSON.stringify(conversionData.dockerComposeJson, null, 2));
+                appFolder.file("config.json", JSON.stringify(conversionData.configJson, null, 2));
+                metadataFolder.file("description.md", conversionData.longDescriptionMdContent); 
+
+                if (conversionData.generatedLogoDataUrl) {
+                    const logoData = conversionData.generatedLogoDataUrl.split(',')[1];
+                    metadataFolder.file("logo.jpg", logoData, {base64: true});
+                }
+
+                const zipContent = await zip.generateAsync({type:"blob"});
+                const zipFileName = `${conversionData.appName}.zip`;
+                const tempLink = document.createElement('a');
+                tempLink.href = URL.createObjectURL(zipContent);
+                tempLink.setAttribute('download', zipFileName);
+                document.body.appendChild(tempLink); tempLink.click(); document.body.removeChild(tempLink);
+                URL.revokeObjectURL(tempLink.href);
+                downloadCompleteMessageEl.textContent = `Successfully created ${zipFileName}! Download should have started.`;
+                showView('viewDownloadComplete');
+            } catch (error) { console.error("ZIP Creation Error:", error); showGlobalMessage(`Error creating ZIP: ${error.message}`, "error"); }
+        });
+        
+        btnConvertAnother.addEventListener('click', () => {
+            initializeConversionData(); 
+            yamlInputEl.value = ''; svgUrlInputEl.value = ''; authorInputEl.value = '';
+            websiteInputEl.value = ''; shortDescriptionInputEl.value = ''; longDescriptionMdInputEl.value = '';
+            sourceUrlInputEl.value = ''; 
+            
+            if (APP_INFO_SCHEMA) { 
+                exposableInputEl.checked = getSchemaDefault("properties.exposable.default", APP_INFO_SCHEMA);
+                noGuiInputEl.checked = getSchemaDefault("properties.no_gui.default", APP_INFO_SCHEMA);
+                dynamicConfigInputEl.checked = true; 
+                populateCategories(); 
+            }
+
+            logoPreviewCanvas.classList.add('hidden');
+            clearGlobalMessage();
+            showView('viewLandingPage'); 
+        });
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            showGlobalMessage("Loading schemas...", "info", false); 
+            await loadSchemas(); 
+            clearGlobalMessage();
+            
+            initializeConversionData(); 
+            populateCategories(); 
+            showView('viewLandingPage'); 
+            logoBgButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.bg === conversionData.logoBg));
+        });
+    </script>
+</body>
+</html>        function generateConfigJsonInternal() {
+            if (!APP_INFO_SCHEMA) {
+                showGlobalMessage("App Info Schema not loaded. Cannot generate config.json.", "error");
+                return {};
+            }
+
+            const configOutput = {};
+            const mainServiceName = conversionData.appName;
+            const mainService = conversionData.composeData.services[mainServiceName];
+
+            if (conversionData.generatedLogoDataUrl) configOutput.logo = conversionData.generatedLogoDataUrl;
+            else configOutput.logo = getSchemaDefault("properties.logo.default", APP_INFO_SCHEMA);
