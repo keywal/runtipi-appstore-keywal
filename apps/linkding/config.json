@@ -1,5 +1,5 @@
 {
-  "$schema": "../app-info-schema.json",
+  "$schema": "https://schemas.runtipi.io/v2/app-info.json",
   "id": "linkding",
   "available": true,
   "deprecated": false,

@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "commit": "git-cz",
-    "lint": "biome check",
+    "lint": "biome check .",
     "lint:ci": "biome ci --changed --error-on-warnings --no-errors-on-unmatched",
     "test": "bun test && bun run scripts/validate-json.js",
-    "prepare": "lefthook install"
+    "prepare": "lefthook install",
+    "format": "biome format . --write"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,7 @@
   },
   "homepage": "https://github.com/meienberger/runtipi-appstore#readme",
   "devDependencies": {
-    "@biomejs/biome": "^2.3.4",
+    "@biomejs/biome": "^2.3.5",
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
     "@commitlint/cz-commitlint": "^20.1.0",

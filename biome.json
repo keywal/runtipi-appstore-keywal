@@ -18,9 +18,6 @@
     "lineWidth": 150,
     "attributePosition": "auto"
   },
-  "organizeImports": {
-    "enabled": true
-  },
   "linter": {
     "enabled": true,
     "rules": {

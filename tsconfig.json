@@ -18,6 +18,6 @@
     "sourceMap": true,
     "lib": ["es2022"]
   },
-  "include": ["apps/**/*.ts", "scripts/**/*.ts"], 
+  "include": ["apps/**/*.ts", "scripts/**/*.ts", "__tests__/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }
