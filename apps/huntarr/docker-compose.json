@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 2,
+  "schema": "https://schemas.runtipi.io/dynamic-compose.json",
+  "services": [
+    {
+      "name": "huntarr",
+      "image": "huntarr/huntarr:latest",
+      "isMain": true,
+      "internalPort": "9705",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/config",
+          "containerPath": "/config"
+        }
+      ]
+    }
+  ]
+}

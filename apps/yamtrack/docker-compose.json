@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 2,
+  "schema": "https://schemas.runtipi.io/dynamic-compose.json",
+  "services": [
+    {
+      "name": "yamtrack",
+      "image": "ghcr.io/fuzzygrim/yamtrack:dev",
+      "isMain": true,
+      "addPorts": [
+        {
+          "hostPort": "8000",
+          "containerPort": "8000",
+          "tcp": true,
+          "udp": false
+        }
+      ],
+      "internalPort": "8000",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/db",
+          "containerPath": "/yamtrack/db",
+          "readOnly": false
+        }
+      ],
+      "environment": [
+        { "key": "TZ", "value": "${TZ}"},
+        { "key": "SECRET", "value": "longstring1longstring2longstring3"},
+        { "key": "REDIS_URL", "value": "redis://redis:6379" }
+      ],
+      "dependsOn": [ "redis" ]
+    },
+    {
+      "name": "redis",
+      "image": "redis:7-alpine",
+      "isMain": false,
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data",
+          "containerPath": "/data",
+          "readOnly": false
+        }
+      ]
+    }
+  ]
+}

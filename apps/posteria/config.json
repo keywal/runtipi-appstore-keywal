@@ -1,0 +1,66 @@
+{
+  "$schema": "../app-info-schema.json",
+  "id": "posteria",
+  "available": true,
+  "deprecated": false,
+  "port": 8818,
+  "name": "Posteria",
+  "description": "Posteria is a web-based media poster management system that allows you to organize and store custom posters for your movies, TV shows, seasons, and co",
+  "short_desc": "Posteria is a web-based media poster management system that allows you to organize and store custom posters for your movies, TV shows, seasons, and co",
+  "author": "bozodev",
+  "website": "https://posteria.app/",
+  "categories": [
+    "media"
+  ],
+  "version": "latest",
+  "tipi_version": 4,
+  "source": "https://github.com/jeremehancock/Posteria",
+  "force_expose": false,
+  "generate_vapid_keys": false,
+  "https": false,
+  "exposable": true,
+  "no_gui": false,
+  "supported_architectures": [
+    "arm64",
+    "amd64"
+  ],
+  "min_tipi_version": "4.5.0",
+  "force_pull": false,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "AUTH USERNAME",
+      "env_variable": "AUTH_USERNAME",
+      "default": "",
+      "placeholder": "Enter value for AUTH_USERNAME",
+      "required": true
+    },
+    {
+      "type": "password",
+      "label": "AUTH PASSWORD",
+      "env_variable": "AUTH_PASSWORD",
+      "default": "",
+      "placeholder": "Enter value for AUTH_PASSWORD",
+      "required": true
+    },
+    {
+      "type": "url",
+      "label": "PLEX SERVER URL",
+      "env_variable": "PLEX_SERVER_URL",
+      "default": "",
+      "placeholder": "Enter value for PLEX_SERVER_URL",
+      "required": true
+    },
+    {
+      "type": "text",
+      "label": "PLEX TOKEN",
+      "env_variable": "PLEX_TOKEN",
+      "default": "",
+      "placeholder": "Enter value for PLEX_TOKEN",
+      "required": true
+    }
+  ],
+  "dynamic_config": false,
+  "created_at": 1747672288,
+  "updated_at": 1747672288
+}

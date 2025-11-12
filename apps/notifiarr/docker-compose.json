@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 2,
+  "schema": "https://schemas.runtipi.io/dynamic-compose.json",
+  "services": [
+    {
+      "name": "Notifiarr",
+      "image": "golift/notifiarr",
+      "isMain": true,
+      "addPorts": [
+        {
+          "hostPort": "5454",
+          "containerPort": "5454",
+          "tcp": true,
+          "udp": false
+        }
+      ],
+      "internalPort": "5454",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/config",
+          "containerPath": "/config",
+          "readOnly": false
+        },
+        {
+          "hostPath": "/var/run/utmp",
+          "containerPath": "/var/run/utmp",
+          "readOnly": false
+        },
+        {
+          "hostPath": "/etc/machine-id",
+          "containerPath": "/etc/machine-id",
+          "readOnly": false
+        }
+      ],
+      "hostname": "notifiarr"
+    }
+  ]
+}

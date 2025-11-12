@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 2,
+  "schema": "https://schemas.runtipi.io/dynamic-compose.json",
+    "services": [
+      {
+        "name": "autokuma",
+        "image": "ghcr.io/bigboot/autokuma:latest",
+        "isMain": true,
+        "internalPort": "3001",
+        "volumes": [
+          {
+            "hostPath": "${APP_DATA_DIR}/data",
+            "containerPath": "/data"
+          },
+          {
+            "hostPath": "/var/run/docker.sock",
+            "containerPath": "/var/run/docker.sock"
+          }
+        ],
+        "environment": [
+        { "key": "AUTOKUMA__KUMA__URL", "value": "${AUTOKUMA__KUMA__URL}" },
+        { "key": "AUTOKUMA__KUMA__USERNAME", "value": "${AUTOKUMA__KUMA__USERNAME}" },
+        { "key": "AUTOKUMA__KUMA__PASSWORD", "value": "${AUTOKUMA__KUMA__PASSWORD}" },
+        { "key": "AUTOKUMA__KUMA__MFA_TOKEN", "value": "${AUTOKUMA__KUMA__MFA_TOKEN}" }
+        ]
+        }
+      
+]
+}

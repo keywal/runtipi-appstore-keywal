@@ -1,0 +1,33 @@
+{
+  "$schema": "../app-info-schema.json",
+  "id": "qbit_manage",
+  "available": true,
+  "deprecated": false,
+  "name": "qBit Manage",
+  "description": "This is a program used to manage your qBittorrent instance",
+  "short_desc": "This is a program used to manage your qBittorrent instance",
+  "author": "StuffAnThings",
+  "website": "",
+  "categories": [
+    "automation",
+    "data"
+  ],
+  "version": "latest",
+  "tipi_version": 4,
+  "source": "https://github.com/StuffAnThings/qbit_manage",
+  "exposable": false,
+  "no_gui": true,
+  "dynamic_config": true,
+  "force_expose": false,
+  "generate_vapid_keys": false,
+  "https": false,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "min_tipi_version": "4.5.0",
+  "force_pull": false,
+  "form_fields": [],
+  "created_at": 1748256377,
+  "updated_at": 1748256377
+}
