@@ -1,4 +1,6 @@
 {
+  "schemaVersion": 2,
+  "schema": "https://schemas.runtipi.io/dynamic-compose.json",
   "services": [
     {
       "name": "qbit_manage",
@@ -21,24 +23,25 @@
           "readOnly": true
         }
       ],
-      "environment": {
-        "QBT_RUN": "false",
-        "QBT_SCHEDULE": "1440",
-        "QBT_CONFIG": "/config/config.yml",
-        "QBT_LOGFILE": "/config/activity.log",
-        "QBT_RECHECK": "false",
-        "QBT_CAT_UPDATE": "false",
-        "QBT_TAG_UPDATE": "false",
-        "QBT_REM_UNREGISTERED": "false",
-        "QBT_REM_ORPHANED": "false",
-        "QBT_TAG_TRACKER_ERROR": "false",
-        "QBT_TAG_NOHARDLINKS": "false",
-        "QBT_SHARE_LIMITS": "false",
-        "QBT_SKIP_CLEANUP": "false",
-        "QBT_DRY_RUN": "false",
-        "QBT_LOG_LEVEL": "INFO",
-        "QBT_WIDTH": "100"
-      }
+      "environment": 
+      [ 
+      { "key" : "QBT_RUN", "value": "false" },
+      { "key" : "QBT_SCHEDULE", "value": "1440" },
+      { "key" : "QBT_CONFIG", "value": "/config/config.yml" },
+      { "key" : "QBT_LOGFILE", "value": "/config/activity.log" },
+      { "key" : "QBT_RECHECK", "value": "false" },
+      { "key" : "QBT_CAT_UPDATE", "value": "false" },
+      { "key" : "QBT_TAG_UPDATE", "value": "false" },
+      { "key" : "QBT_REM_UNREGISTERED", "value": "false" },
+      { "key" : "QBT_REM_ORPHANED", "value": "false" },
+      { "key" : "QBT_TAG_TRACKER_ERROR", "value": "false" },
+      { "key" : "QBT_TAG_NOHARDLINKS", "value": "false" },
+      { "key" : "QBT_SHARE_LIMITS", "value": "false" },
+      { "key" : "QBT_SKIP_CLEANUP", "value": "false" },
+      { "key" : "QBT_DRY_RUN", "value": "false" },
+      { "key" : "QBT_LOG_LEVEL", "value": "INFO" },
+      { "key" : "QBT_WIDTH", "value": "100" }
+      ]
     }
   ]
 }

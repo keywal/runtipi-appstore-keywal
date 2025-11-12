@@ -1,6 +1,5 @@
 {
-  "schemaVersion": 2,
-  "schema": "https://schemas.runtipi.io/dynamic-compose.json",
+  "$schema": "../app-info-schema.json",
   "id": "posteria",
   "available": true,
   "deprecated": false,

@@ -1,4 +1,6 @@
 {
+  "schemaVersion": 2,
+  "schema": "https://schemas.runtipi.io/dynamic-compose.json",
   "services": [
     {
       "name": "yamtrack",
@@ -20,14 +22,12 @@
           "readOnly": false
         }
       ],
-      "environment": {
-        "TZ": "Europe/Dublin",
-        "SECRET": "longstring1longstring2longstring3",
-        "REDIS_URL": "redis://redis:6379"
-      },
-      "dependsOn": [
-        "redis"
-      ]
+      "environment": [
+        { "key": "TZ", "value": "${TZ}"},
+        { "key": "SECRET", "value": "longstring1longstring2longstring3"},
+        { "key": "REDIS_URL", "value": "redis://redis:6379" }
+      ],
+      "dependsOn": [ "redis" ]
     },
     {
       "name": "redis",
