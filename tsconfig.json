@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    /* Base Options: */
     "esModuleInterop": true,
     "skipLibCheck": true,
     "target": "es2022",
@@ -7,18 +8,15 @@
     "resolveJsonModule": true,
     "moduleDetection": "force",
     "isolatedModules": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
+    /* Strictness */
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "module": "NodeNext",
     "outDir": "dist",
     "sourceMap": true,
-    "lib": [
-      "es2022"
-    ]
+    "lib": ["es2022"]
   },
-  "include": [
-    "**/*.ts",
-  ],
+  "include": ["apps/**/*.ts"]
 }
