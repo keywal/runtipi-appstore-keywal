@@ -16,6 +16,7 @@
           }
         ],
 <<<<<<< HEAD
+<<<<<<< HEAD
         "environment": {
           "AUTOKUMA__KUMA__URL": "${AUTOKUMA__KUMA__URL}",
           "AUTOKUMA__KUMA__USERNAME": "${AUTOKUMA__KUMA__USERNAME}",
@@ -31,6 +32,15 @@
         "AUTOKUMA__KUMA__MFA_TOKEN": "${AUTOKUMA__KUMA__MFA_TOKEN}"
 >>>>>>> parent of 74dd393 (modifying env schema values)
         }
+=======
+        "environment": 
+        {
+        "AUTOKUMA__KUMA__URL": "${AUTOKUMA__KUMA__URL}",
+        "AUTOKUMA__KUMA__USERNAME": "${AUTOKUMA__KUMA__USERNAME}",
+        "AUTOKUMA__KUMA__PASSWORD": "${AUTOKUMA__KUMA__PASSWORD}",
+        "AUTOKUMA__KUMA__MFA_TOKEN": "${AUTOKUMA__KUMA__MFA_TOKEN}"
+        }
+>>>>>>> parent of 74dd393 (modifying env schema values)
       }
 ]
 }

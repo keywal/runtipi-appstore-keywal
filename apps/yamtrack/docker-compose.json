@@ -22,12 +22,15 @@
       ],
       "environment": {
 <<<<<<< HEAD
+<<<<<<< HEAD
         "TZ": "${TZ}",
         "SECRET": "longstring1longstring2longstring3",
         "REDIS_URL": "redis://redis:6379"
       },
       "dependsOn": [ "redis" ]
 =======
+=======
+>>>>>>> parent of 74dd393 (modifying env schema values)
         "TZ": "Europe/Dublin",
         "SECRET": "longstring1longstring2longstring3",
         "REDIS_URL": "redis://redis:6379"
@@ -35,6 +38,9 @@
       "dependsOn": [
         "redis"
       ]
+<<<<<<< HEAD
+>>>>>>> parent of 74dd393 (modifying env schema values)
+=======
 >>>>>>> parent of 74dd393 (modifying env schema values)
     },
     {
