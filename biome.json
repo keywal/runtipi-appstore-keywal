@@ -1,5 +1,5 @@
 {
-  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -7,7 +7,7 @@
     "defaultBranch": "origin/master"
   },
   "files": {
-    "includes": ["**/*.ts", "**/*.tsx", "**/*.json", "**/*.js", "**/*.jsx"],
+    "include": ["**/*.ts", "**/*.tsx", "**/*.json"],
     "ignoreUnknown": false
   },
   "formatter": {
@@ -18,23 +18,13 @@
     "lineWidth": 150,
     "attributePosition": "auto"
   },
-  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "organizeImports": {
+    "enabled": true
+  },
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
-      "style": {
-        "noParameterAssign": "error",
-        "useAsConstAssertion": "error",
-        "useDefaultParameterLast": "error",
-        "useEnumInitializers": "error",
-        "useSelfClosingElements": "error",
-        "useSingleVarDeclarator": "error",
-        "noUnusedTemplateLiteral": "error",
-        "useNumberNamespace": "error",
-        "noInferrableTypes": "error",
-        "noUselessElse": "error"
-      }
+      "recommended": true
     }
   },
   "javascript": {
