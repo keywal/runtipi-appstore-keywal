@@ -1,6 +1,4 @@
 {
-  "schemaVersion": 2,
-  "schema": "https://schemas.runtipi.io/dynamic-compose.json",
   "services": [
     {
       "name": "yamtrack",
@@ -23,11 +21,21 @@
         }
       ],
       "environment": {
+<<<<<<< HEAD
         "TZ": "${TZ}",
         "SECRET": "longstring1longstring2longstring3",
         "REDIS_URL": "redis://redis:6379"
       },
       "dependsOn": [ "redis" ]
+=======
+        "TZ": "Europe/Dublin",
+        "SECRET": "longstring1longstring2longstring3",
+        "REDIS_URL": "redis://redis:6379"
+      },
+      "dependsOn": [
+        "redis"
+      ]
+>>>>>>> parent of 74dd393 (modifying env schema values)
     },
     {
       "name": "redis",

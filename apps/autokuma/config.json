@@ -1,5 +1,6 @@
 {
-    "$schema": "../app-info-schema.json",
+    "schemaVersion": 2,
+    "schema": "https://schemas.runtipi.io/dynamic-compose.json",
     "name": "AutoKuma",
     "id": "autokuma",
     "available": true,
@@ -21,7 +22,7 @@
     ],
     "created_at": 1745082405284,
     "updated_at": 1745674974072,
-    "dynamic_config": false,
+    "dynamic_config": true,
     "form_fields": [
           {
       "type": "text",

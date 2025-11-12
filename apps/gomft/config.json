@@ -1,5 +1,6 @@
 {
-  "$schema": "../app-info-schema.json",
+  "schemaVersion": 2,
+  "schema": "https://schemas.runtipi.io/dynamic-compose.json",
   "name": "GoMFT",
   "id": "gomft",
   "available": true,
