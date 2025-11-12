@@ -15,12 +15,11 @@
         }
       ],
       "internalPort": "9090",
-      "environment": 
-      [
-        { "key": "LD_SUPERUSER_NAME", "value": "${LD_SUPERUSER_NAME}" },
-        { "key": "LD_SUPERUSER_PASSWORD", "value": "${LD_SUPERUSER_PASSWORD}" },
-        { "key": "LD_SUPERUSER_EMAIL", "value": "${LD_SUPERUSER_EMAIL}" }
-      ],
+      "environment": {
+        "LD_SUPERUSER_NAME": "${LD_SUPERUSER_NAME}",
+        "LD_SUPERUSER_PASSWORD": "${LD_SUPERUSER_PASSWORD}",
+        "LD_SUPERUSER_EMAIL": "${LD_SUPERUSER_EMAIL}"
+      },
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data",

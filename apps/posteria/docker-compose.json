@@ -27,26 +27,26 @@
           "readOnly": false
         }
       ],
-      "environment": [
-      { "key" : "SITE_TITLE", "value" : "Posteria" },
-      { "key" : "AUTH_USERNAME", "value" : "${AUTH_USERNAME}" },
-      { "key" : "AUTH_PASSWORD", "value" : "${AUTH_PASSWORD}" },
-      { "key" : "SESSION_DURATION", "value" : "3600" },
-      { "key" : "AUTH_BYPASS", "value" : "false" },
-      { "key" : "IMAGES_PER_PAGE", "value" : "24" },
-      { "key" : "MAX_FILE_SIZE", "value" : "5242880" },
-      { "key" : "PLEX_SERVER_URL", "value" : "${PLEX_SERVER_URL}" },
-      { "key" : "PLEX_TOKEN", "value" : "${PLEX_TOKEN}" },
-      { "key" : "PLEX_REMOVE_OVERLAY_LABEL", "value" : "false" },
-      { "key" : "IGNORE_ARTICLES_IN_SORT", "value" : "true" },
-      { "key" : "SORT_BY_DATE_ADDED", "value" : "false" },
-      { "key" : "AUTO_IMPORT_ENABLED", "value" : "false" },
-      { "key" : "AUTO_IMPORT_SCHEDULE", "value" : "1h" },
-      { "key" : "AUTO_IMPORT_MOVIES", "value" : "false" },
-      { "key" : "AUTO_IMPORT_SHOWS", "value" : "false" },
-      { "key" : "AUTO_IMPORT_SEASONS", "value" : "false" },
-      { "key" : "AUTO_IMPORT_COLLECTIONS", "value" : "false" }
-      ]
+      "environment": {
+        "SITE_TITLE": "Posteria",
+        "AUTH_USERNAME": "${AUTH_USERNAME}",
+        "AUTH_PASSWORD": "${AUTH_PASSWORD}",
+        "SESSION_DURATION": "3600",
+        "AUTH_BYPASS": "false",
+        "IMAGES_PER_PAGE": "24",
+        "MAX_FILE_SIZE": "5242880",
+        "PLEX_SERVER_URL": "${PLEX_SERVER_URL}",
+        "PLEX_TOKEN": "${PLEX_TOKEN}",
+        "PLEX_REMOVE_OVERLAY_LABEL": "false",
+        "IGNORE_ARTICLES_IN_SORT": "true",
+        "SORT_BY_DATE_ADDED": "false",
+        "AUTO_IMPORT_ENABLED": "false",
+        "AUTO_IMPORT_SCHEDULE": "1h",
+        "AUTO_IMPORT_MOVIES": "false",
+        "AUTO_IMPORT_SHOWS": "false",
+        "AUTO_IMPORT_SEASONS": "false",
+        "AUTO_IMPORT_COLLECTIONS": "false"
+      }
     }
   ]
 }
