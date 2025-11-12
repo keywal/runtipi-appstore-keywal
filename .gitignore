@@ -1,32 +1,15 @@
 node_modules/
-/.venv/
+package-lock.json
+github.secrets
 .DS_Store
-.env
-.env.*
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+.nova
+.vscode/*
+!.vscode/extensions.json
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/runtipi
+app.png
 
-# Bun
-.bun/
-
-# Build / output
-dist/
-build/
-coverage/
-/.parcel-cache/
-/.turbo/
-
-# Editor directories
-.vscode/
-.idea/
-
-# OS files
-Thumbs.db
-Desktop.ini
-
-# Application-specific
-svg2jpg.html
-packageconverter.html
+.cursorrules
