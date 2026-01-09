@@ -1,5 +1,5 @@
 ## NOTE: 
-###This is the sqlite version. Please see JigSawFR version if you wish to have the DB seperate.
+### This is the sqlite version. Please see JigSawFR version if you wish to have the DB seperate.
 
 <br>
 <p align="left">
