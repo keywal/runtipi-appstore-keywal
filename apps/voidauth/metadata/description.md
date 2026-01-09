@@ -1,11 +1,14 @@
+## NOTE: 
+###This is the sqlite version. Please see JigSawFR version if you wish to have the DB seperate.
+
 <br>
-<p align="center">
+<p align="left">
   <a href='https://voidauth.app'>
     <img src="https://raw.githubusercontent.com/voidauth/voidauth/refs/heads/main/docs/logo_full_text.svg" width="180" title="VoidAuth" alt="VoidAuth logo"/>
   </a>
 </p>
 
-<p align="center">
+<p align="left">
   <strong>
     Single Sign-On for Your Self-Hosted Universe
   </strong>
@@ -13,14 +16,14 @@
 
 <br>
 
-<div align="center">
+<div align="left">
   <a href="https://voidauth.app">Website</a> |
   <a href="https://github.com/voidauth/voidauth">Source Code</a>
 </div>
 
 <br>
 
-<p align="center">
+<p align="left">
   <img src="https://raw.githubusercontent.com/voidauth/voidauth/refs/heads/main/docs/public/screenshots/login_page.png" title="Login Portal" alt="Login Portal" width="280">
 </p>
 
@@ -43,7 +46,7 @@ Features:
 
 Administrators can access the Admin Panel in the sidebar menu, where they can manage users and settings.
 
-<p align="center">
+<p align="left">
   <img src="https://raw.githubusercontent.com/voidauth/voidauth/refs/heads/main/docs/public/screenshots/admin_panel.png" title="Admin Panel" alt="An Admin Page with the Admin Side Panel Open" width="600">
 </p>
 
