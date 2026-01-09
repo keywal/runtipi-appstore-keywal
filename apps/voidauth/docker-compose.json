@@ -5,6 +5,7 @@
         {
             "name": "voidauth-db",
             "image": "postgres:18",
+            "internalPort": 5432,
             "environment": [
                 {
                     "key": "POSTGRES_PASSWORD",
