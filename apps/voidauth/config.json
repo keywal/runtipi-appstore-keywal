@@ -25,14 +25,6 @@
       "env_variable": "VOIDAUTH_STORAGE_KEY"
     },
     {
-      "type": "random",
-      "label": "Database Password",
-      "hint": "Password for the PostgreSQL database connection",
-      "min": 32,
-      "max": 32,
-      "env_variable": "VOIDAUTH_DB_PASSWORD"
-    },
-    {
       "type": "text",
       "label": "Application Title",
       "hint": "Custom title displayed on the web interface",

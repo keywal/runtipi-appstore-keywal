@@ -3,26 +3,6 @@
     "schemaVersion": 2,
     "services": [
         {
-            "name": "voidauth-db",
-            "image": "postgres:18",
-            "environment": [
-                {
-                    "key": "POSTGRES_PASSWORD",
-                    "value": "${VOIDAUTH_DB_PASSWORD}"
-                },
-                {
-                    "key": "TZ",
-                    "value": "${TZ}"
-                }
-            ],
-            "volumes": [
-                {
-                    "hostPath": "${APP_DATA_DIR}/data/postgres",
-                    "containerPath": "/var/lib/postgresql/data"
-                }
-            ]
-        },
-        {
             "name": "voidauth",
             "image": "ghcr.io/voidauth/voidauth:1.9.0",
             "isMain": true,
@@ -37,16 +17,8 @@
                     "value": "${VOIDAUTH_STORAGE_KEY}"
                 },
                 {
-                    "key": "DB_HOST",
-                    "value": "voidauth-db"
-                },
-                {
-                    "key": "DB_PASSWORD",
-                    "value": "${VOIDAUTH_DB_PASSWORD}"
-                },
-                {
                     "key": "DB_ADAPTER",
-                    "value": "postgres"
+                    "value": "sqlite"
                 },
                 {
                     "key": "APP_TITLE",
@@ -101,6 +73,10 @@
                 {
                     "hostPath": "${APP_DATA_DIR}/data/config",
                     "containerPath": "/app/config"
+                },
+                {
+                    "hostPath": "${APP_DATA_DIR}/data/db",
+                    "containerPath": "/app/db"
                 }
             ]
         }
