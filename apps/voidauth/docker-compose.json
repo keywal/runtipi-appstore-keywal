@@ -5,7 +5,6 @@
         {
             "name": "voidauth-db",
             "image": "postgres:18",
-            "internalPort": 5432,
             "environment": [
                 {
                     "key": "POSTGRES_PASSWORD",
@@ -21,24 +20,13 @@
                     "hostPath": "${APP_DATA_DIR}/data/postgres",
                     "containerPath": "/var/lib/postgresql/data"
                 }
-            ],
-            "healthCheck": {
-                "test": "pg_isready -U postgres -h localhost",
-                "interval": "10s",
-                "timeout": "5s",
-                "retries": 5
-            }
+            ]
         },
         {
             "name": "voidauth",
             "image": "ghcr.io/voidauth/voidauth:1.9.0",
             "isMain": true,
             "internalPort": 3000,
-            "dependsOn": {
-                "voidauth-db": {
-                    "condition": "service_healthy"
-                }
-            },
             "environment": [
                 {
                     "key": "APP_URL",
