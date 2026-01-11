@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "quickstart",
+      "image": "kometateam/quickstart:develop",
+      "isMain": true,
+      "addPorts": [
+        {
+          "hostPort": "7171",
+          "containerPort": "7171",
+          "tcp": true,
+          "udp": false
+        }
+      ],
+      "internalPort": "7171",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/data/config",
+          "containerPath": "/config",
+          "readOnly": false
+        }
+      ]
+    }
+  ]
+}
