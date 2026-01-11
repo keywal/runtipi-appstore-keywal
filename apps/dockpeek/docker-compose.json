@@ -5,6 +5,14 @@
       "name": "dockpeek",
       "image": "dockpeek/dockpeek:latest",
       "isMain": true,
+      "addPorts": [
+        {
+          "hostPort": "8000",
+          "containerPort": "8000",
+          "tcp": true,
+          "udp": false
+        }
+      ],
       "internalPort": "8000",
       "volumes": [
         {
@@ -13,11 +21,11 @@
           "readOnly": false
         }
       ],
-      "environment": {
+      "environment": [ {
         "SECRET_KEY": "${SECRET_KEY}",
         "USERNAME": "${USERNAME}",
         "PASSWORD": "${PASSWORD}"
-      }
+      } ]
     }
   ]
 }
