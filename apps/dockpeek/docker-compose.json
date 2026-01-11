@@ -21,11 +21,20 @@
           "readOnly": false
         }
       ],
-      "environment": [ {
-        "SECRET_KEY": "${SECRET_KEY}",
-        "USERNAME": "${USERNAME}",
-        "PASSWORD": "${PASSWORD}"
-      } ]
+      "environment": [ 
+        {
+          "key": "SECRET_KEY", 
+          "value": "${SECRET_KEY}"
+        },
+        {
+          "key": "USERNAME",
+          "value": "${USERNAME}"
+        },
+        {  
+          "key": "PASSWORD",
+          "value": "${PASSWORD}"
+        } 
+      ]
     }
   ]
 }
