@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "dockpeek",
+      "image": "dockpeek/dockpeek:latest",
+      "isMain": true,
+      "internalPort": "8000",
+      "volumes": [
+        {
+          "hostPath": "/var/run/docker.sock",
+          "containerPath": "/var/run/docker.sock",
+          "readOnly": false
+        }
+      ],
+      "environment": {
+        "SECRET_KEY": "${SECRET_KEY}",
+        "USERNAME": "${USERNAME}",
+        "PASSWORD": "${PASSWORD}"
+      }
+    }
+  ]
+}

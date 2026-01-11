@@ -45,9 +45,9 @@ For detailed instructions on creating your own app store, please refer to the of
 
  [QuickStart](https://github.com/Kometa-Team/Quickstart) - A GUI Frontend for Kometa
 
+ [Dockpeek](https://github.com/dockpeek/dockpeek) - Dockpeek is a lightweight, self-hosted Docker dashboard for quick access to your containers. Open web interfaces, view logs, monitor ports, and update images — all from one clean, intuitive interface.
+
  
  More to follow...
 
 
-## Note for me
-[svg2jpg converter](https://g.co/gemini/share/4fd7dbb4a4e4)

@@ -1,0 +1,57 @@
+{
+  "id": "dockpeek",
+  "available": true,
+  "deprecated": false,
+  "port": 3420,
+  "name": "Dockpeek",
+  "description": "Dockpeek is a lightweight, self-hosted Docker dashboard for quick access to your containers.",
+  "short_desc": "Dockpeek is a lightweight, self-hosted Docker dashboard for quick access to your containers.",
+  "author": "dockpeek",
+  "website": "",
+  "categories": [
+    "utilities"
+  ],
+  "version": "latest",
+  "tipi_version": 1,
+  "source": "https://github.com/dockpeek/dockpeek",
+  "exposable": true,
+  "no_gui": false,
+  "dynamic_config": true,
+  "force_expose": false,
+  "generate_vapid_keys": false,
+  "https": false,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "min_tipi_version": "0.0.0",
+  "force_pull": false,
+  "form_fields": [
+    {
+      "type": "text",
+      "label": "SECRET KEY (dockpeek)",
+      "env_variable": "SECRET_KEY",
+      "default": "",
+      "placeholder": "Enter value for SECRET_KEY",
+      "required": true
+    },
+    {
+      "type": "text",
+      "label": "USERNAME (dockpeek)",
+      "env_variable": "USERNAME",
+      "default": "",
+      "placeholder": "Enter value for USERNAME",
+      "required": true
+    },
+    {
+      "type": "password",
+      "label": "PASSWORD (dockpeek)",
+      "env_variable": "PASSWORD",
+      "default": "",
+      "placeholder": "Enter value for PASSWORD",
+      "required": true
+    }
+  ],
+  "created_at": 1768173974,
+  "updated_at": 1768173974
+}
