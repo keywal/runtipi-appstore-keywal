@@ -41,6 +41,9 @@ For detailed instructions on creating your own app store, please refer to the of
 
  [qbit-manage](https://github.com/StuffAnThings/qbit_manage) - This is a program used to manage your qBittorrent instance.
 
+ [VoidAuth](https://github.com/voidauth/voidauth) - SSO authentication for homelab services. (sqlite version)
+
+ [QuickStart](https://github.com/Kometa-Team/Quickstart) - A GUI Frontend for Kometa
 
  
  More to follow...

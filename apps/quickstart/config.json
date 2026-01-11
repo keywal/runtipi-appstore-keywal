@@ -3,7 +3,7 @@
   "available": true,
   "deprecated": false,
   "port": 7171,
-  "name": "quickstart",
+  "name": "Quickstart",
   "description": "Kometa Quickstart is a full interactive environment for configuring, validating, and running Kometa.",
   "short_desc": "Kometa Quickstart is a full interactive environment for configuring, validating, and running Kometa.",
   "author": "kometateam",
