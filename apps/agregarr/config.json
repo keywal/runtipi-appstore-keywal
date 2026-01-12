@@ -1,0 +1,33 @@
+{
+  "id": "agregarr",
+  "available": true,
+  "deprecated": false,
+  "port": 7171,
+  "name": "Agregarr",
+  "description": "Agregarr keeps your Plex Home and Recommended fresh by frequently updating it with Collections from various sources.",
+  "short_desc": "Agregarr keeps your Plex Home and Recommended fresh by frequently updating it with Collections from various sources.",
+  "author": "agregarr",
+  "website": "",
+  "categories": [
+    "media",
+    "automation"
+  ],
+  "version": "latest",
+  "tipi_version": 1,
+  "source": "https://github.com/agregarr/agregarr",
+  "exposable": true,
+  "no_gui": false,
+  "dynamic_config": true,
+  "force_expose": false,
+  "generate_vapid_keys": false,
+  "https": false,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "min_tipi_version": "0.0.0",
+  "force_pull": false,
+  "form_fields": [],
+  "created_at": 1768176099,
+  "updated_at": 1768176099
+}

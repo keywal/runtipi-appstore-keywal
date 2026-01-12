@@ -47,6 +47,8 @@ For detailed instructions on creating your own app store, please refer to the of
 
  [Dockpeek](https://github.com/dockpeek/dockpeek) - Dockpeek is a lightweight, self-hosted Docker dashboard for quick access to your containers. Open web interfaces, view logs, monitor ports, and update images — all from one clean, intuitive interface.
 
+ [Agregarr](https://github.com/agregarr/agregarr) - Agregarr keeps your Plex Home and Recommended fresh by frequently updating it with Collections from various sources, including Trakt, IMDb, TMDB, Letterboxd, MDBList etc.
+
  
  More to follow...
 

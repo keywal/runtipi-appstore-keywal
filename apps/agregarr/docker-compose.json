@@ -2,15 +2,21 @@
   "schemaVersion": 2,
   "services": [
     {
-      "name": "quickstart",
-      "image": "kometateam/quickstart:develop",
+      "name": "agregarr",
+      "image": "agregarr/agregarr:latest",
       "isMain": true,
       "internalPort": "7171",
       "volumes": [
         {
           "hostPath": "${APP_DATA_DIR}/data/config",
-          "containerPath": "/config",
+          "containerPath": "/app/config",
           "readOnly": false
+        }
+      ],
+      "environment": [
+        {
+          "key": "TZ",
+          "value": "${TZ}"
         }
       ]
     }
