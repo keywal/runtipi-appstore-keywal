@@ -1,0 +1,41 @@
+{
+  "id": "nextexplorer",
+  "available": true,
+  "deprecated": false,
+  "port": 3000,
+  "name": "nextexplorer",
+  "description": "A modern, self-hosted file explorer with secure access control, polished UX, and a Docker-first deployment.",
+  "short_desc": "A modern, self-hosted file explorer with secure access control, polished UX, and a Docker-first deployment.",
+  "author": "vikramsoni2",
+  "website": "",
+  "categories": [
+    "data"
+  ],
+  "version": "latest",
+  "tipi_version": 1,
+  "source": "https://github.com/vikramsoni2/nextExplorer",
+  "exposable": true,
+  "no_gui": false,
+  "dynamic_config": true,
+  "force_expose": false,
+  "generate_vapid_keys": false,
+  "https": false,
+  "supported_architectures": [
+    "amd64",
+    "arm64"
+  ],
+  "min_tipi_version": "0.0.0",
+  "force_pull": false,
+  "form_fields": [
+    {
+      "type": "url",
+      "label": "PUBLIC URL (nextexplorer)",
+      "env_variable": "PUBLIC_URL",
+      "default": "",
+      "placeholder": "Enter value for PUBLIC_URL",
+      "required": true
+    }
+  ],
+  "created_at": 1768236681,
+  "updated_at": 1768236681
+}

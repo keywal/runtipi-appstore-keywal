@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 2,
+  "services": [
+    {
+      "name": "nextexplorer",
+      "image": "nxzai/explorer:latest",
+      "isMain": true,
+      "internalPort": "3000",
+      "volumes": [
+        {
+          "hostPath": "${APP_DATA_DIR}/config",
+          "containerPath": "/config",
+          "readOnly": false
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/cache",
+          "containerPath": "/cache",
+          "readOnly": false
+        },
+        {
+          "hostPath": "${APP_DATA_DIR}/files",
+          "containerPath": "/mnt/Files",
+          "readOnly": false
+        }
+      ],
+      "environment": [
+        {
+          "key": "NODE_ENV",
+          "value": "production"
+        },
+        {
+          "key": "PUBLIC_URL",
+          "value": "${PUBLIC_URL}"
+        }
+      ]
+    }
+  ]
+}
