@@ -3,7 +3,7 @@
   "available": true,
   "deprecated": false,
   "port": 3000,
-  "name": "nextexplorer",
+  "name": "NextExplorer",
   "description": "A modern, self-hosted file explorer with secure access control, polished UX, and a Docker-first deployment.",
   "short_desc": "A modern, self-hosted file explorer with secure access control, polished UX, and a Docker-first deployment.",
   "author": "vikramsoni2",
