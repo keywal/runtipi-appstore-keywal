@@ -26,7 +26,7 @@
     "arm64"
   ],
   "min_tipi_version": "0.0.0",
-  "force_pull": false,
+  "force_pull": true,
   "form_fields": [],
   "created_at": 1768176099,
   "updated_at": 1768176099
